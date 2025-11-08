@@ -20,3 +20,20 @@ export interface User {
   lastName?: string;
   isNew?: boolean;
 }
+
+// Backend API Types
+export interface Transaction {
+  id: string;
+  item: string;
+  amount: number;
+  date: string;  // ISO8601 timestamp
+  category: string;
+}
+
+export interface Prediction {
+  item: string;
+  category: string;
+  next_time: string;  // ISO8601 timestamp
+  confidence: number;
+  samples: number;
+}
