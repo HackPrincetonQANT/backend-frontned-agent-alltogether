@@ -1,6 +1,7 @@
 import { useUser } from '@clerk/clerk-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mascot } from './Mascot';
+import { fetchAccountBalance, type AccountBalance } from '../../services';
 
 export const Home = () => {
   const { user } = useUser();
@@ -11,12 +12,35 @@ export const Home = () => {
   const goalCost = 250;
   const savedAmount = 17;
   const progress = (savedAmount / goalCost) * 100;
-  const bankBalance = 1234.56;
+
+  // State for bank account data
+  const [accountData, setAccountData] = useState<AccountBalance | null>(null);
+  const [isLoadingAccount, setIsLoadingAccount] = useState(true);
+  const [accountError, setAccountError] = useState<string | null>(null);
 
   // Weekly savings target
   const [weeklySavingsTarget, setWeeklySavingsTarget] = useState(20);
   const [isEditingTarget, setIsEditingTarget] = useState(false);
   const [tempTarget, setTempTarget] = useState(weeklySavingsTarget.toString());
+
+  // Fetch account balance on component mount
+  useEffect(() => {
+    const loadAccountBalance = async () => {
+      try {
+        setIsLoadingAccount(true);
+        setAccountError(null);
+        const balance = await fetchAccountBalance();
+        setAccountData(balance);
+      } catch (error) {
+        console.error('Failed to load account balance:', error);
+        setAccountError(error instanceof Error ? error.message : 'Failed to load account balance');
+      } finally {
+        setIsLoadingAccount(false);
+      }
+    };
+
+    loadAccountBalance();
+  }, []);
 
   const handleEditTarget = () => {
     setIsEditingTarget(true);
@@ -122,9 +146,28 @@ export const Home = () => {
           <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border-4 border-[#6b4423]">
             <h3 className="text-2xl font-rique font-bold mb-3 text-[#6b4423]">Bank Balance</h3>
             <div className="mt-4">
-              <p className="text-sm font-lexend text-[#8b6240] mb-1">Capital One Savings</p>
-              <p className="text-sm font-lexend text-[#8b6240] mb-3">••••xx90</p>
-              <p className="text-3xl font-rique font-bold text-[#6b4423]">${bankBalance.toFixed(2)}</p>
+              {isLoadingAccount ? (
+                <div className="flex items-center justify-center py-4">
+                  <div className="w-8 h-8 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : accountError ? (
+                <div className="text-red-600 text-sm font-lexend">
+                  <p className="mb-2">⚠️ {accountError}</p>
+                  <p className="text-xs text-[#8b6240]">Check your .env.local file</p>
+                </div>
+              ) : accountData ? (
+                <>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-1">{accountData.nickname || 'Capital One Savings'}</p>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    ••••{accountData.accountNumber.slice(-4)}
+                  </p>
+                  <p className="text-3xl font-rique font-bold text-[#6b4423]">
+                    ${accountData.balance.toFixed(2)}
+                  </p>
+                </>
+              ) : (
+                <p className="text-sm font-lexend text-[#8b6240]">No account data available</p>
+              )}
             </div>
           </div>
 
