@@ -16,30 +16,6 @@ export const Insights = () => {
     { month: 'November', spent: 480, saved: 320 }
   ];
 
-  const recommendations = [
-    {
-      id: 1,
-      title: 'Reduce Food & Drink Spending',
-      description: 'You spent 35% more on dining out this month. Consider meal prepping to save $150/month.',
-      impact: 'high',
-      savings: 150
-    },
-    {
-      id: 2,
-      title: 'Switch to Annual Subscriptions',
-      description: 'Save $45/year by switching Netflix and Spotify to annual plans.',
-      impact: 'medium',
-      savings: 45
-    },
-    {
-      id: 3,
-      title: 'Increase Savings Goal',
-      description: 'You\'re saving consistently! Consider increasing your bike fund by $50/month.',
-      impact: 'low',
-      savings: 50
-    }
-  ];
-
   const streakDays = 12;
   const goalProgress = 67;
   const goalCost = 250;
@@ -195,34 +171,243 @@ export const Insights = () => {
           </div>
         </div>
 
-        {/* AI Recommendations */}
-        <div className="bg-[#f8f3e9] rounded-3xl p-8 shadow-xl border-4 border-[#6b4423]">
-          <h2 className="text-3xl font-rique font-bold text-[#6b4423] mb-6">💡 Smart Recommendations</h2>
-          
-          <div className="space-y-4">
-            {recommendations.map((rec) => (
-              <div
-                key={rec.id}
-                className="bg-[#fdfbf7] rounded-2xl p-6 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-colors"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-rique font-bold text-[#6b4423]">{rec.title}</h3>
-                  <span className={`px-3 py-1 rounded-full text-sm font-lexend font-bold border-2 ${
-                    rec.impact === 'high' 
-                      ? 'bg-red-100 text-red-700 border-red-700' 
-                      : rec.impact === 'medium'
-                      ? 'bg-yellow-100 text-yellow-700 border-yellow-700'
-                      : 'bg-green-100 text-green-700 border-green-700'
-                  }`}>
-                    {rec.impact.toUpperCase()}
-                  </span>
+        {/* Pro Tips Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Side - Pro Tips (2/3 width) */}
+          <div className="lg:col-span-2">
+            <div className="bg-[#f8f3e9] rounded-3xl p-8 shadow-xl border-4 border-[#6b4423]">
+              <h2 className="text-3xl font-rique font-bold text-[#6b4423] mb-6">💡 Pro Tips</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Netflix Tip */}
+                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl">📺</span>
+                    <div>
+                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Netflix Usage Low</h3>
+                      <p className="text-xs font-lexend text-[#8b6240] mt-1">Only 2 episodes this month</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    You've barely used Netflix. Consider canceling next month and saving $15.99.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-rique font-bold text-green-600">Save $16/mo</span>
+                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                      Review
+                    </button>
+                  </div>
                 </div>
-                <p className="text-base font-lexend text-[#8b6240] mb-3">{rec.description}</p>
-                <p className="text-lg font-rique font-bold text-green-600">
-                  Potential savings: ${rec.savings}/month
-                </p>
+
+                {/* Coffee Tip */}
+                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl">☕</span>
+                    <div>
+                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Daily Starbucks</h3>
+                      <p className="text-xs font-lexend text-[#8b6240] mt-1">$5.50 × 22 days = $121/mo</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    Try Dunkin' or make coffee at home. Could save $80+ per month!
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-rique font-bold text-green-600">Save $80/mo</span>
+                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                      Explore
+                    </button>
+                  </div>
+                </div>
+
+                {/* Gym Membership Tip */}
+                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl">💪</span>
+                    <div>
+                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Gym Check-ins</h3>
+                      <p className="text-xs font-lexend text-[#8b6240] mt-1">Only 4 visits this month</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    You're paying $50/month but barely going. Consider a cheaper plan or home workouts.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-rique font-bold text-green-600">Save $35/mo</span>
+                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                      Review
+                    </button>
+                  </div>
+                </div>
+
+                {/* Subscription Bundling */}
+                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl">📱</span>
+                    <div>
+                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Multiple Subscriptions</h3>
+                      <p className="text-xs font-lexend text-[#8b6240] mt-1">5 music/video services</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    Bundle Spotify & Hulu for $10.99 instead of paying separately ($25.98).
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-rique font-bold text-green-600">Save $15/mo</span>
+                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                      Bundle
+                    </button>
+                  </div>
+                </div>
+
+                {/* Lunch Spending */}
+                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl">🍱</span>
+                    <div>
+                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Daily Takeout</h3>
+                      <p className="text-xs font-lexend text-[#8b6240] mt-1">$15 × 20 days = $300/mo</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    Pack lunch 3 days a week and save over $180/month on food costs.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-rique font-bold text-green-600">Save $180/mo</span>
+                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                      Plan
+                    </button>
+                  </div>
+                </div>
+
+                {/* Delivery Fees */}
+                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl">🚗</span>
+                    <div>
+                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Delivery Fees</h3>
+                      <p className="text-xs font-lexend text-[#8b6240] mt-1">$8.50 average per order</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                    You spent $102 on delivery fees alone this month. Try pickup when possible.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-rique font-bold text-green-600">Save $75/mo</span>
+                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                      Track
+                    </button>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Right Side - Price Comparisons (1/3 width) */}
+          <div className="lg:col-span-1">
+            <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl border-4 border-[#6b4423] sticky top-6">
+              <h2 className="text-2xl font-rique font-bold text-[#6b4423] mb-4">💰 Better Deals</h2>
+              
+              <div className="space-y-4">
+                {/* Trader Joe's vs Walmart */}
+                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🛒</span>
+                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Grocery Savings</h3>
+                  </div>
+                  <div className="space-y-2 mb-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Trader Joe's</span>
+                      <span className="text-sm font-lexend font-bold text-red-600">$87.50</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Walmart</span>
+                      <span className="text-sm font-lexend font-bold text-green-600">$67.30</span>
+                    </div>
+                  </div>
+                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
+                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
+                      Save $20.20 per trip! 💚
+                    </p>
+                  </div>
+                </div>
+
+                {/* Whole Foods vs Aldi */}
+                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🥬</span>
+                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Produce Deals</h3>
+                  </div>
+                  <div className="space-y-2 mb-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Whole Foods</span>
+                      <span className="text-sm font-lexend font-bold text-red-600">$45.99</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Aldi</span>
+                      <span className="text-sm font-lexend font-bold text-green-600">$28.75</span>
+                    </div>
+                  </div>
+                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
+                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
+                      Save $17.24 per trip! 🌱
+                    </p>
+                  </div>
+                </div>
+
+                {/* Target vs Amazon */}
+                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">📦</span>
+                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Online Shopping</h3>
+                  </div>
+                  <div className="space-y-2 mb-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Target</span>
+                      <span className="text-sm font-lexend font-bold text-red-600">$156.78</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Amazon</span>
+                      <span className="text-sm font-lexend font-bold text-green-600">$132.45</span>
+                    </div>
+                  </div>
+                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
+                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
+                      Save $24.33 shopping! 📱
+                    </p>
+                  </div>
+                </div>
+
+                {/* CVS vs Costco */}
+                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">💊</span>
+                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Pharmacy Savings</h3>
+                  </div>
+                  <div className="space-y-2 mb-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">CVS</span>
+                      <span className="text-sm font-lexend font-bold text-red-600">$89.99</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-lexend text-[#8b6240]">Costco Pharmacy</span>
+                      <span className="text-sm font-lexend font-bold text-green-600">$54.99</span>
+                    </div>
+                  </div>
+                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
+                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
+                      Save $35.00 on meds! 💊
+                    </p>
+                  </div>
+                </div>
+
+                {/* Total Potential Savings */}
+                <div className="bg-[#6b4423] rounded-xl p-4 border-4 border-[#5a3a1f] mt-4">
+                  <p className="text-sm font-lexend text-[#f8f3e9] mb-1 text-center">Total Monthly Savings</p>
+                  <p className="text-3xl font-rique font-bold text-[#fdfbf7] text-center">$96.77</p>
+                  <p className="text-xs font-lexend text-[#f8f3e9] mt-1 text-center">if you switch stores!</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
