@@ -2,14 +2,14 @@ import { UserButton } from '@clerk/clerk-react';
 import { useState } from 'react';
 
 interface NavbarProps {
-  activeView: 'home' | 'transactions' | 'insights';
-  setActiveView: (view: 'home' | 'transactions' | 'insights') => void;
+  activeView: 'home' | 'activity' | 'insights';
+  setActiveView: (view: 'home' | 'activity' | 'insights') => void;
 }
 
 export const Navbar = ({ activeView, setActiveView }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleNavClick = (tab: 'home' | 'transactions' | 'insights') => {
+  const handleNavClick = (tab: 'home' | 'activity' | 'insights') => {
     setActiveView(tab);
     setMenuOpen(false);
   };
@@ -65,16 +65,16 @@ export const Navbar = ({ activeView, setActiveView }: NavbarProps) => {
               Home
             </button>
 
-            {/* Transactions */}
+            {/* Activity */}
             <button
-              onClick={() => handleNavClick('transactions')}
+              onClick={() => handleNavClick('activity')}
               className={`w-full text-left px-6 py-4 rounded-2xl font-lexend text-lg transition-all border-4 ${
-                activeView === 'transactions'
+                activeView === 'activity'
                   ? 'bg-[#6b4423] text-[#fdfbf7] border-[#6b4423]'
                   : 'bg-[#fdfbf7] text-[#6b4423] border-[#6b4423] hover:bg-[#f3ecd8]'
               }`}
             >
-              Transactions
+              Activity
             </button>
 
             {/* Insights */}

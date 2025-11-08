@@ -1,12 +1,12 @@
 import { SignedIn, SignedOut, SignInButton } from '@clerk/clerk-react';
 import { useState } from 'react';
 import { Onboarding } from './components/onboarding';
-import { Navbar, Home, Transactions, Insights } from './components/common';
+import { Navbar, Home, Activity, Insights } from './components/common';
 import { useOnboarding } from './hooks';
 
 export default function App() {
   const { shouldShowOnboarding, isLoading } = useOnboarding();
-  const [activeView, setActiveView] = useState<'home' | 'transactions' | 'insights'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'activity' | 'insights'>('home');
 
   if (isLoading) {
     return (
@@ -41,7 +41,7 @@ export default function App() {
           <>
             <Navbar activeView={activeView} setActiveView={setActiveView} />
             {activeView === 'home' && <Home />}
-            {activeView === 'transactions' && <Transactions />}
+            {activeView === 'activity' && <Activity />}
             {activeView === 'insights' && <Insights />}
           </>
         )}
