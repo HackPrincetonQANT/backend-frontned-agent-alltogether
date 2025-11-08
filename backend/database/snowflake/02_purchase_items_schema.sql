@@ -20,6 +20,9 @@ CREATE OR REPLACE TABLE purchase_items (
   merchant           STRING,
   ts                 TIMESTAMP_TZ,        -- When purchased
 
+  -- Location Data (for weekly suggestions)
+  buyer_location     VARIANT,             -- {city, state, country, lat, lon, tz} - lat/lon transient
+
   -- Item Information
   item_name          STRING,              -- Original item name
   item_text          STRING,              -- Normalized text for ML: "merchant · category · item_name"
@@ -55,6 +58,13 @@ CREATE OR REPLACE TABLE purchase_items (
 
 -- Indexes for common query patterns
 ALTER TABLE purchase_items CLUSTER BY (user_id, ts);
+
+-- ============================================================================
+-- Test Table: purchase_items_test (Same schema as purchase_items)
+-- ============================================================================
+-- Used for development and testing without affecting production data
+
+CREATE OR REPLACE TABLE purchase_items_test LIKE purchase_items;
 
 -- ============================================================================
 -- Helper View: transactions_for_predictions

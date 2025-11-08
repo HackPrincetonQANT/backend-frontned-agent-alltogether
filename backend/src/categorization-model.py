@@ -103,12 +103,16 @@ def insert_to_snowflake_batch(all_results, merchant_name):
             item_text += f" · {result.get('subcategory')}"
         item_text += f" · {result['item']}"
 
+        # Convert buyer_location dict to JSON string for VARIANT column
+        buyer_location_json = json.dumps(result.get('buyer_location', {}))
+
         params_list.append({
             'item_id': str(uuid.uuid4()),
             'purchase_id': f"amzn_{result['transaction_id']}",
             'user_id': user_id,
             'merchant': merchant_name,
             'ts': result['purchased_at'],
+            'buyer_location': buyer_location_json,  # Add location as JSON
             'item_name': result['item'],
             'item_text': item_text,
             'category': result['category'],
@@ -122,12 +126,13 @@ def insert_to_snowflake_batch(all_results, merchant_name):
     # Single batch insert for all records
     sql = """
     INSERT INTO purchase_items_test (
-        item_id, purchase_id, user_id, merchant, ts,
+        item_id, purchase_id, user_id, merchant, ts, buyer_location,
         item_name, item_text, category, subcategory, price, qty,
         detected_needwant, reason, confidence, status
     ) VALUES (
         %(item_id)s, %(purchase_id)s, %(user_id)s, %(merchant)s,
         TO_TIMESTAMP_TZ(%(ts)s),
+        PARSE_JSON(%(buyer_location)s),
         %(item_name)s, %(item_text)s, %(category)s, %(subcategory)s, %(price)s, %(qty)s,
         NULL, %(reason)s, %(confidence)s, 'active'
     )
@@ -185,8 +190,8 @@ async def main():
     Expected input: JSON file with Amazon transactions containing products
     Expected output: Category classification and database insertion confirmation
     """
-    # Load JSON data
-    json_path = os.path.join(os.path.dirname(__file__), 'data', 'sample_knot.json')
+    # Load JSON data (with buyer location data)
+    json_path = os.path.join(os.path.dirname(__file__), 'data', 'sample_knot_with_location.json')
 
     with open(json_path, 'r') as f:
         data = json.load(f)
@@ -202,6 +207,9 @@ async def main():
     product_metadata = []
 
     for transaction in data['transactions']:
+        # Extract buyer_location from transaction
+        buyer_location = transaction.get('buyer_location', {})
+
         for product in transaction['products']:
             products_to_categorize.append({
                 'name': product['name'],
@@ -212,7 +220,8 @@ async def main():
                 'transaction_datetime': transaction['datetime'],
                 'name': product['name'],
                 'price': float(product['price']['total']),
-                'quantity': product['quantity']
+                'quantity': product['quantity'],
+                'buyer_location': buyer_location  # Add location data
             })
 
     # Single batch categorization call
@@ -232,7 +241,8 @@ async def main():
             "confidence": cat_result['confidence'],
             "reason": cat_result['reason'],
             "ask_user": cat_result['ask_user'],
-            "transaction_id": metadata['transaction_id']
+            "transaction_id": metadata['transaction_id'],
+            "buyer_location": metadata['buyer_location']  # Add location data
         })
 
     # Calculate summary statistics

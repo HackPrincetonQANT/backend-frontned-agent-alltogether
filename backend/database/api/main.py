@@ -3,7 +3,7 @@
 from typing import List, Dict, Any
 
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from . import queries as Q
 from .db import fetch_all, execute
@@ -11,6 +11,7 @@ from .models import TransactionInsert, UserReply
 from .semantic import search_similar_items
 from .predictor import predict_next_purchases
 from .do_llm import call_do_llm
+from .suggestions import get_weekly_report, get_recent_reports
 
 app = FastAPI(title="BalanceIQ Core API", version="0.1.0")
 
@@ -273,4 +274,191 @@ def api_coach(
         "predictions": predictions,
         "recent_transactions": summarized_txs,
     }
+
+
+# ----------------------------------------------------------------------
+# Weekly Alternative Suggestions
+# ----------------------------------------------------------------------
+
+
+@app.get("/api/user/{user_id}/weekly_alternatives")
+def api_weekly_alternatives(
+    user_id: str,
+    week: str = Query(None, description="ISO week start date (YYYY-MM-DD). If not provided, returns most recent report."),
+) -> Dict[str, Any]:
+    """
+    Get weekly alternative suggestions for a user.
+
+    Returns cached weekly suggestion reports that show cheaper alternatives
+    for the user's purchases across major retailers.
+
+    Query Parameters:
+        - week: Optional ISO week start date (YYYY-MM-DD)
+          If not provided, returns the most recent report
+
+    Returns:
+        {
+            "user_id": "test_user_001",
+            "week_start": "2024-01-22",
+            "week_end": "2024-01-29",
+            "findings": [
+                {
+                    "item_name": "Ring Video Doorbell 3",
+                    "original_price": 119.99,
+                    "original_merchant": "Amazon",
+                    "alternative_merchant": "Best Buy",
+                    "total_landed_cost": 106.99,
+                    "total_savings": 13.00,
+                    "url": "https://www.bestbuy.com/...",
+                    ...
+                }
+            ],
+            "total_potential_savings": 42.50,
+            "items_analyzed": 5,
+            "items_with_alternatives": 3,
+            "created_at": "2024-01-27T10:30:00Z",
+            "updated_at": "2024-01-27T10:30:00Z"
+        }
+
+    Performance: <800ms (served from cached reports in Snowflake)
+    """
+    if week:
+        # Get specific week's report
+        report = get_weekly_report(user_id, week)
+
+        if not report:
+            raise HTTPException(
+                status_code=404,
+                detail=f"No weekly alternatives report found for user {user_id} and week {week}"
+            )
+
+        return report
+
+    else:
+        # Get most recent report
+        recent_reports = get_recent_reports(user_id, limit=1)
+
+        if not recent_reports:
+            raise HTTPException(
+                status_code=404,
+                detail=f"No weekly alternatives reports found for user {user_id}"
+            )
+
+        return recent_reports[0]
+
+
+@app.get("/api/user/{user_id}/weekly_alternatives/history")
+def api_weekly_alternatives_history(
+    user_id: str,
+    limit: int = Query(4, ge=1, le=12, description="Number of recent reports to return"),
+) -> List[Dict[str, Any]]:
+    """
+    Get recent weekly alternative suggestions history for a user.
+
+    Returns up to `limit` recent reports, ordered by week_start descending.
+    Default is 4 reports (approximately 1 month of history).
+
+    Returns:
+        [
+            {
+                "user_id": "test_user_001",
+                "week_start": "2024-01-22",
+                "week_end": "2024-01-29",
+                "total_potential_savings": 42.50,
+                "items_analyzed": 5,
+                "items_with_alternatives": 3,
+                "findings": [...],
+                ...
+            },
+            ...
+        ]
+    """
+    reports = get_recent_reports(user_id, limit=limit)
+
+    if not reports:
+        # Return empty list instead of 404 for history endpoint
+        return []
+
+    return reports
+
+
+@app.get("/api/user/{user_id}/weekly_alternatives/stream")
+async def stream_weekly_alternatives(
+    user_id: str,
+    week: str = Query(None, description="ISO week start date (YYYY-MM-DD). If not provided, uses last week."),
+):
+    """
+    Stream weekly alternative suggestions with real-time progress (Server-Sent Events).
+
+    This endpoint provides live updates as the AI analyzes purchases and discovers
+    cheaper alternatives. Perfect for showing progress in the UI.
+
+    Query Parameters:
+        - week: Optional ISO week start date (YYYY-MM-DD)
+          If not provided, uses last week
+
+    Returns:
+        Server-Sent Events (text/event-stream) with progress updates:
+        - start: Analysis beginning
+        - items_loaded: Purchases fetched
+        - analyzing: AI processing
+        - found: Alternative discovered
+        - complete: Analysis finished
+        - error: Error occurred
+
+    Example frontend usage:
+        ```javascript
+        const eventSource = new EventSource('/api/user/test_user_001/weekly_alternatives/stream');
+        eventSource.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data.event, data);
+        };
+        ```
+
+    Performance: Real-time streaming (5-10 seconds total)
+    """
+    import importlib.util
+    import os
+    import json
+
+    # Dynamically load streaming module
+    stream_path = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'services', 'weekly_suggester_stream.py')
+    spec = importlib.util.spec_from_file_location("weekly_suggester_stream", stream_path)
+    stream_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(stream_module)
+
+    # Determine week to process
+    if not week:
+        from datetime import datetime, timedelta
+        # Default to last week
+        today = datetime.now()
+        days_since_monday = today.weekday()
+        last_monday = today - timedelta(days=days_since_monday + 7)
+        week = last_monday.strftime('%Y-%m-%d')
+
+    async def event_generator():
+        """Generate SSE events from streaming suggester"""
+        try:
+            async for event_data in stream_module.generate_weekly_suggestions_stream(user_id, week):
+                # Format as SSE: data: {json}\n\n
+                yield f"data: {json.dumps(event_data)}\n\n"
+
+        except Exception as e:
+            # Send error event
+            error_event = {
+                "event": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
+            yield f"data: {json.dumps(error_event)}\n\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",  # Disable nginx buffering
+        }
+    )
 

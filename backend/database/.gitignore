@@ -11,6 +11,7 @@ balanceiq-api/.venv*/
 
 # Local environment files (keep out of repo)
 .env
+api/.env.example
 api/.env
 
 # Python caches and compiled files
