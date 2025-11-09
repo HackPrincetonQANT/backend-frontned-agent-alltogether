@@ -4,12 +4,14 @@ import fs from 'fs/promises'
 import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
+import fetch from 'node-fetch'
 
 dotenv.config()
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 const PORT = process.env.AGENT_PORT || 3001
 const TEST_NUMBER = process.env.TEST_NUMBER || '+15514049519'
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8000'
 
 // Express server for API endpoints
 const app = express()
@@ -55,10 +57,40 @@ async function parseReceiptImage(imagePath) {
         const text = result.response.text().trim().replace(/```json\n?/g, '').replace(/```\n?/g, '')
         const data = JSON.parse(text)
 
-        console.log(`[PARSE] Success`)
+        console.log(`[PARSE] Success - Store: ${data.store}, Total: $${data.total}`)
         return { success: true, data }
     } catch (error) {
         console.error(`[PARSE ERROR] ${error.message}`)
+        return { success: false, error: error.message }
+    }
+}
+
+// FUNCTION 2B: Save receipt to backend database
+async function saveReceiptToBackend(receiptData, userId = 'u_demo_min') {
+    try {
+        console.log(`[SAVE] Sending receipt to backend for ${userId}`)
+        
+        const response = await fetch(`${BACKEND_URL}/api/receipt/process`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                ...receiptData
+            })
+        })
+
+        if (!response.ok) {
+            const errorText = await response.text()
+            throw new Error(`Backend error: ${response.status} - ${errorText}`)
+        }
+
+        const result = await response.json()
+        console.log(`[SAVE] Success - Saved ${result.transactions?.length || 0} transactions`)
+        return { success: true, data: result }
+    } catch (error) {
+        console.error(`[SAVE ERROR] ${error.message}`)
         return { success: false, error: error.message }
     }
 }
@@ -168,15 +200,16 @@ async function sendPredictionNotification(recipient, prediction) {
         
         // Personalized messages based on category and item
         if (prediction.category === 'Coffee' || prediction.item.toLowerCase().includes('starbucks') || prediction.item.toLowerCase().includes('coffee')) {
-            message += `I noticed you're likely getting coffee soon! Maybe try visiting some cheaper coffee spots nearby?\n\n`
+            message += `I noticed you're likely getting coffee soon! Instead of chain coffee shops, check out these local Princeton spots that are cheaper:\n\n`
             
-            // Get cheaper coffee recommendations
-            const coffeeResult = await searchNearbyPlaces('coffee', 'Princeton University')
+            // Get local cheaper coffee spots near Princeton
+            const coffeeResult = await searchNearbyPlaces('local independent coffee shops cheaper than Starbucks', 'Princeton NJ')
             if (coffeeResult.success) {
-                message += `Here are some affordable options:\n\n`
+                message += `Affordable local options:\n\n`
                 coffeeResult.places.forEach(p => {
                     message += `${p.rank}. ${p.name}\n${p.description.trim()}\n\n`
                 })
+                message += `Supporting local = saving money + better community! 🐷`
             }
         } else if (prediction.category === 'Entertainment' || prediction.item.toLowerCase().includes('netflix') || prediction.item.toLowerCase().includes('hulu') || prediction.item.toLowerCase().includes('disney')) {
             message += `I see you're about to renew ${prediction.item}!\n\n`
@@ -190,15 +223,13 @@ async function sendPredictionNotification(recipient, prediction) {
                 message += `Have you been using it much? If not, maybe pause this month and save some cash!`
             }
         } else if (prediction.category === 'Groceries' || prediction.item.toLowerCase().includes('trader') || prediction.item.toLowerCase().includes('grocery')) {
-            message += `Time for grocery shopping soon! Want to save money?\n\n`
+            message += `Time for grocery shopping soon! Skip the expensive stores and save BIG at these spots:\n\n`
             
-            const groceryResult = await searchNearbyPlaces('cheap groceries', 'Princeton')
-            if (groceryResult.success) {
-                message += `Check out these affordable grocery stores:\n\n`
-                groceryResult.places.forEach(p => {
-                    message += `${p.rank}. ${p.name}\n${p.description.trim()}\n\n`
-                })
-            }
+            message += `🏪 Budget-Friendly Options:\n\n`
+            message += `1. Aldi - Up to 50% cheaper than traditional supermarkets! Same quality, way less money. They have locations in Lawrenceville and Hamilton.\n\n`
+            message += `2. Dollar Tree - Everything is $1.25! Great for pantry staples, snacks, cleaning supplies. Location in Princeton Shopping Center.\n\n`
+            message += `3. Lidl - Similar to Aldi, awesome deals on fresh produce and dairy. Check out the Hamilton location.\n\n`
+            message += `Pro tip: Aldi's private label brands are often made by the same manufacturers as name brands - you're literally paying for the packaging at other stores! 💰`
         } else if (prediction.category === 'Transport' || prediction.item.toLowerCase().includes('uber') || prediction.item.toLowerCase().includes('lyft')) {
             message += `I see you might be taking a ride soon!\n\n`
             message += `Quick tip: Compare Uber vs Lyft prices before booking - sometimes one can be significantly cheaper! Or consider NJ Transit if you're going into the city.`
@@ -276,17 +307,42 @@ await sdk.startWatching({
                     
                     if (result.success) {
                         const d = result.data
-                        let resp = `Receipt Analysis\n\n`
+                        
+                        // Save to database
+                        const saveResult = await saveReceiptToBackend(d)
+                        
+                        let resp = `Oink oink! I've analyzed your receipt!\n\n`
                         if (d.store) resp += `Store: ${d.store}\n`
                         if (d.location) resp += `Location: ${d.location}\n\n`
-                        if (d.items?.length > 0) {
-                            resp += `Items:\n`
-                            d.items.forEach((item, i) => {
-                                resp += `${i + 1}. ${item.name} - Qty: ${item.quantity} x $${item.price.toFixed(2)}\n`
-                            })
-                            resp += `\nTotal: $${d.total.toFixed(2)}`
+                        
+                        if (saveResult.success) {
+                            const saved = saveResult.data
+                            resp += `Saved to your spending tracker!\n\n`
+                            resp += `📊 Summary:\n`
+                            resp += `- ${saved.transactions.length} item(s) added\n`
+                            resp += `- Total: $${saved.total_amount.toFixed(2)}\n\n`
+                            
+                            if (saved.transactions.length > 0) {
+                                resp += `Categories:\n`
+                                saved.transactions.forEach((t, i) => {
+                                    resp += `${i + 1}. ${t.item} - $${t.amount.toFixed(2)} (${t.category})\n`
+                                })
+                            }
+                        } else {
+                            // Fallback if save failed
+                            if (d.items?.length > 0) {
+                                resp += `Items:\n`
+                                d.items.forEach((item, i) => {
+                                    resp += `${i + 1}. ${item.name} - Qty: ${item.quantity} x $${item.price.toFixed(2)}\n`
+                                })
+                                resp += `\nTotal: $${d.total.toFixed(2)}\n\n`
+                                resp += `Note: I had trouble saving this to your tracker. Try again later!`
+                            }
                         }
+                        
                         await sendMessage(msg.sender, resp)
+                    } else {
+                        await sendMessage(msg.sender, `Oink oink! I had trouble reading that receipt. Could you try taking a clearer photo?`)
                     }
                 }
             }

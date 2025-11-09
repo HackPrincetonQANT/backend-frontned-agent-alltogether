@@ -1,21 +1,56 @@
 INFO:     Will watch for changes in these directories: ['/Users/columbus/Desktop/hackPrinceton/backend']
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [89579] using StatReload
-INFO:     Started server process [89582]
+INFO:     Started reloader process [71337] using StatReload
+INFO:     Started server process [71340]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:51089 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51090 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51091 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51092 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51089 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51090 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51092 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51091 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51129 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51180 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51178 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51179 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51181 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51240 - "OPTIONS /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51240 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56322 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56325 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56326 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56324 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56323 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56327 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56326 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56322 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56325 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56324 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56405 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56404 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56402 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56403 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56434 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56402 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56404 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56435 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56434 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56405 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56403 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56402 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56404 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56435 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56509 - "GET /api/user/u_demo_min/transactions?limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56730 - "GET /api/user/u_demo_min/transactions?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56752 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56749 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56748 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56750 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56751 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56753 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56749 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56752 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1450) for column NODES
+INFO:     127.0.0.1:56750 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1450) for column NODES
+INFO:     127.0.0.1:56748 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/receipt_processing.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71340]
+INFO:     Started server process [72875]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

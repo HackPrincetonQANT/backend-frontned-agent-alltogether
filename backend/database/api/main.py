@@ -15,6 +15,7 @@ from .do_llm import call_do_llm
 from .smart_tips import generate_smart_tips
 from .better_deals import generate_better_deals
 from .piggy_graph import generate_piggy_graph
+from .receipt_processing import save_receipt_to_database
 
 app = FastAPI(title="BalanceIQ Core API", version="0.1.0")
 
@@ -386,3 +387,39 @@ def api_piggy_graph(
         print("Piggy graph error:", repr(e))
         raise HTTPException(status_code=500, detail="Failed to generate piggy graph")
 
+
+@app.post("/api/receipt/process")
+async def process_receipt(receipt_data: Dict[str, Any]):
+    """
+    Process receipt data from image and save to database
+    
+    Expected receipt_data:
+    {
+        "user_id": "u_demo_min",
+        "store": "Trader Joe's",
+        "location": "Princeton, NJ",
+        "items": [
+            {"name": "Milk", "quantity": 1, "price": 3.99},
+            {"name": "Bread", "quantity": 2, "price": 2.50}
+        ],
+        "total": 8.99
+    }
+    
+    Returns:
+    - success: Boolean
+    - message: Description of what was saved
+    - transactions: List of saved transactions with categories
+    - total_amount: Total amount saved
+    """
+    try:
+        user_id = receipt_data.get('user_id', 'u_demo_min')
+        
+        result = save_receipt_to_database(user_id, receipt_data)
+        
+        if result['success']:
+            return result
+        else:
+            raise HTTPException(status_code=500, detail=result.get('error', 'Failed to save receipt'))
+    except Exception as e:
+        print("Receipt processing error:", repr(e))
+        raise HTTPException(status_code=500, detail=str(e))
