@@ -14,6 +14,7 @@ from .predictor import predict_next_purchases
 from .do_llm import call_do_llm
 from .smart_tips import generate_smart_tips
 from .better_deals import generate_better_deals
+from .piggy_graph import generate_piggy_graph
 
 app = FastAPI(title="BalanceIQ Core API", version="0.1.0")
 
@@ -349,4 +350,39 @@ def api_better_deals(
     except Exception as e:
         print("Better deals error:", repr(e))
         raise HTTPException(status_code=500, detail="Failed to generate better deals")
+
+
+# ----------------------------------------------------------------------
+# Piggy Graph endpoint
+# ----------------------------------------------------------------------
+
+
+@app.get("/api/piggy-graph")
+def api_piggy_graph(
+    user_id: str = Query(..., description="User ID"),
+) -> Dict[str, Any]:
+    """
+    Piggy Graph visualization endpoint.
+    
+    Generates a graph structure for visualizing user spending habits,
+    preferences, and AI-driven insights from Snowflake data.
+    
+    Returns:
+    - nodes: List of graph nodes (piggy center, insights, merchants, categories)
+    - edges: Connections between nodes
+    - insights: AI-analyzed patterns (household size, frequency, preferences)
+    - stats: Overall statistics
+    
+    Features:
+    - Frequency analysis (daily Starbucks visits)
+    - Location inference (near Princeton)
+    - Household size prediction (large grocery orders)
+    - Category preferences
+    """
+    try:
+        graph_data = generate_piggy_graph(user_id=user_id)
+        return graph_data
+    except Exception as e:
+        print("Piggy graph error:", repr(e))
+        raise HTTPException(status_code=500, detail="Failed to generate piggy graph")
 

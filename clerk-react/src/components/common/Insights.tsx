@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchUserTransactions, fetchSmartTips, fetchBetterDeals } from '../../services';
 import type { Transaction, BetterDeal } from '../../types';
+import { PiggyGraph } from './PiggyGraph';
 
 interface SmartTip {
   icon: string;
@@ -310,6 +311,11 @@ export const Insights = () => {
               )}
             </div>
           </div>
+        </div>
+
+        {/* Piggy Graph Section */}
+        <div className="mt-8">
+          <PiggyGraph />
         </div>
       </div>
     </div>
