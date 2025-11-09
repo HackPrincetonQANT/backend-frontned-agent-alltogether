@@ -224,3 +224,47 @@ export const fetchBetterDeals = async (
     throw error;
   }
 };
+
+/**
+ * Fetch AI-generated personalized deals
+ * @param userId - User identifier
+ * @param limit - Maximum number of deals to fetch (default 2)
+ */
+export const fetchAIDeals = async (
+  userId: string,
+  limit: number = 2
+): Promise<Array<{
+  title: string;
+  subtitle: string;
+  description: string;
+  savings: number;
+  category: string;
+  cta: string;
+  icon: string;
+}>> => {
+  try {
+    const baseUrl = getBackendUrl();
+    const url = `${baseUrl}/api/ai-deals?user_id=${userId}&limit=${limit}`;
+    
+    console.log('Fetching AI deals from:', url);
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Backend API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('Received AI deals:', data);
+    
+    return data;
+  } catch (error) {
+    console.error('Error fetching AI deals:', error);
+    throw error;
+  }
+};

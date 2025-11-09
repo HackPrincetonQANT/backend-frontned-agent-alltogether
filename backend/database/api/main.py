@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import queries as Q
-from .db import fetch_all, execute
+from .db import fetch_all, execute, get_conn
 from .models import TransactionInsert, UserReply
 from .semantic import search_similar_items
 from .predictor import predict_next_purchases
@@ -423,3 +423,227 @@ async def process_receipt(receipt_data: Dict[str, Any]):
     except Exception as e:
         print("Receipt processing error:", repr(e))
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/ai-deals")
+def get_ai_deals(
+    user_id: str = Query("u_demo_min"),
+    limit: int = Query(2, ge=1, le=10),
+) -> List[Dict[str, Any]]:
+    """
+    Generate AI-powered personalized deals based on user's spending patterns.
+    Returns deals that match user interests and categories.
+    """
+    try:
+        # Get recent transactions to understand spending
+        recent_sql = """
+            SELECT CATEGORY, COUNT(*) as count, AVG(PRICE) as avg_price
+            FROM SNOWFLAKE_LEARNING_DB.BALANCEIQ_CORE.PURCHASE_ITEMS_TEST
+            WHERE USER_ID = %s
+            GROUP BY CATEGORY
+            ORDER BY count DESC
+            LIMIT 3
+        """
+        category_stats = fetch_all(recent_sql, (user_id,))
+    except Exception as e:
+        print(f"Error fetching category stats: {e}")
+        category_stats = []
+    
+    # Generate AI deals based on top categories
+    deals = []
+    
+    # Deal templates based on categories - realistic and believable deals
+    deal_templates = {
+        'Coffee': [
+            {
+                "title": "Starbucks Rewards",
+                "subtitle": "2% cashback on all purchases",
+                "description": "Use your Chase Freedom card at Starbucks and earn 2% cashback. On your $5 daily coffee, that's $3/month back!",
+                "savings": 3,
+                "category": "Coffee",
+                "cta": "Learn More",
+            },
+            {
+                "title": "Dunkin' Perks Deal",
+                "subtitle": "Free drink after 5 purchases",
+                "description": "Join DD Perks program. Buy 5, get 1 free. Based on your coffee habit, you'll get 2 free drinks per month!",
+                "savings": 6,
+                "category": "Coffee",
+                "cta": "Sign Up",
+            }
+        ],
+        'Groceries': [
+            {
+                "title": "Target Circle Cashback",
+                "subtitle": "5% off with RedCard",
+                "description": "Get 5% off every Target trip with RedCard debit card. On $80/week groceries, save $16/month!",
+                "savings": 16,
+                "category": "Groceries",
+                "cta": "Apply Now",
+            },
+            {
+                "title": "Walmart+ Membership",
+                "subtitle": "Free delivery, gas discount",
+                "description": "Get free grocery delivery + 10¢/gal gas discount. Save $12/month vs paying delivery fees.",
+                "savings": 12,
+                "category": "Groceries",
+                "cta": "Try Free",
+            }
+        ],
+        'Food': [
+            {
+                "title": "DoorDash DashPass",
+                "subtitle": "$0 delivery fees",
+                "description": "Order 3x/month? DashPass ($9.99/mo) saves you $5/order in delivery fees. Net savings: $5/month.",
+                "savings": 5,
+                "category": "Food",
+                "cta": "Subscribe",
+            },
+            {
+                "title": "Student Dining Discount",
+                "subtitle": "15% off local restaurants",
+                "description": "Show student ID at participating restaurants. Save 15% on your next 3 meals out.",
+                "savings": 8,
+                "category": "Food",
+                "cta": "View List",
+            }
+        ],
+        'Transport': [
+            {
+                "title": "Uber Pass Student",
+                "subtitle": "$4.99/mo, save on rides",
+                "description": "Get $5 off 2 rides/month. If you Uber 2x monthly, this pays for itself + $5 extra savings.",
+                "savings": 5,
+                "category": "Transport",
+                "cta": "Get Pass",
+            },
+            {
+                "title": "Campus Bike Share",
+                "subtitle": "First month free",
+                "description": "Princeton bike share: $8/month after free trial. Replace 4 Uber rides and save $12/month.",
+                "savings": 12,
+                "category": "Transport",
+                "cta": "Sign Up",
+            }
+        ],
+        'Entertainment': [
+            {
+                "title": "Black Friday: Hulu + Disney+",
+                "subtitle": "$1.99/month for 12 months",
+                "description": "Early Black Friday deal! Hulu + Disney+ bundle for just $1.99/mo (normally $9.99). Save $8/month!",
+                "savings": 8,
+                "category": "Entertainment",
+                "cta": "Grab Deal",
+            },
+            {
+                "title": "Spotify Student Discount",
+                "subtitle": "50% off with .edu email",
+                "description": "Get Spotify Premium for $5.99/mo (normally $10.99). Includes Hulu. Save $5/month.",
+                "savings": 5,
+                "category": "Entertainment",
+                "cta": "Verify Now",
+            }
+        ],
+        'Shopping': [
+            {
+                "title": "Amazon Student Prime",
+                "subtitle": "6 months free, then $7.49/mo",
+                "description": "Free 2-day shipping + Prime Video. Save on shipping costs vs paying per order.",
+                "savings": 10,
+                "category": "Shopping",
+                "cta": "Start Trial",
+            },
+            {
+                "title": "Rakuten Cashback",
+                "subtitle": "1-5% back on purchases",
+                "description": "Get cashback when shopping online. On $100/month purchases, earn $2-5 back automatically.",
+                "savings": 4,
+                "category": "Shopping",
+                "cta": "Install Free",
+            }
+        ]
+    }
+    
+    # Select deals based on user's top spending categories
+    deals_per_category = max(1, limit // max(len(category_stats), 1)) if category_stats else 1
+    
+    if category_stats:
+        for cat_data in category_stats:
+            category = cat_data['CATEGORY']
+            if category in deal_templates:
+                # Add multiple deals from this category
+                for deal in deal_templates[category][:deals_per_category]:
+                    if len(deals) < limit:
+                        deals.append(deal)
+    
+    # Fill remaining slots with popular deals if needed
+    if len(deals) < limit:
+        default_deals = [
+            {
+                "title": "Black Friday: Disney+ Bundle",
+                "subtitle": "$1.99/mo for 12 months",
+                "description": "Limited time! Disney+ with ads for just $1.99/month. Save $8/month vs regular price.",
+                "savings": 8,
+                "category": "Streaming",
+                "cta": "Get Deal",
+            },
+            {
+                "title": "Student Spotify Premium",
+                "subtitle": "50% off with student email",
+                "description": "Spotify Premium + Hulu for $5.99/month. Save $5/month with .edu email verification.",
+                "savings": 5,
+                "category": "Music",
+                "cta": "Verify Student",
+            },
+            {
+                "title": "Target Circle App",
+                "subtitle": "Extra 5% off clearance",
+                "description": "Download Target app for exclusive deals. Save an extra 5% on clearance items every week.",
+                "savings": 7,
+                "category": "Retail",
+                "cta": "Download",
+            },
+            {
+                "title": "Chipotle Rewards",
+                "subtitle": "Free entree after 10 visits",
+                "description": "Join rewards program. Get a free burrito bowl ($10 value) after every 10 purchases.",
+                "savings": 10,
+                "category": "Dining",
+                "cta": "Sign Up",
+            },
+            {
+                "title": "Netflix Student Discount",
+                "subtitle": "Basic plan at $6.99/mo",
+                "description": "Get Netflix Basic for $6.99/month (save $3/mo). Verify with your .edu email address.",
+                "savings": 3,
+                "category": "Streaming",
+                "cta": "Verify Now",
+            },
+            {
+                "title": "Gas Buddy Rewards",
+                "subtitle": "Save 5¢/gallon",
+                "description": "Link your debit card and save 5¢ per gallon. On 10 gallons/week, save $2.60/month.",
+                "savings": 3,
+                "category": "Gas",
+                "cta": "Link Card",
+            },
+            {
+                "title": "Campus Bookstore Sale",
+                "subtitle": "20% off used textbooks",
+                "description": "Buy used textbooks and save 20% vs new. Resell at end of semester for even more savings.",
+                "savings": 15,
+                "category": "Books",
+                "cta": "Shop Now",
+            },
+            {
+                "title": "Planet Fitness Student",
+                "subtitle": "$10/month, no commitment",
+                "description": "Get gym membership for just $10/month with student ID. Cancel anytime, no annual fee.",
+                "savings": 20,
+                "category": "Fitness",
+                "cta": "Join Now",
+            }
+        ]
+        deals.extend(default_deals[:limit - len(deals)])
+    
+    return deals[:limit]

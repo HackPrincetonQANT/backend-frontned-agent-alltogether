@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Mascot } from './Mascot';
 import { fetchUserTransactions, fetchPredictions } from '../../services';
 import type { Transaction, Prediction } from '../../types';
 
@@ -290,128 +289,32 @@ export const Activity = () => {
           </div>
         )}
 
-        {/* Connections Tab */}
+        {/* Connections Tab - Simplified */}
         {activeTab === 'connections' && (
-          <div className="bg-[#f8f3e9] rounded-3xl p-8 shadow-xl border-4 border-[#6b4423]">
-            {/* Mascot Section */}
-            <div className="flex flex-col items-center mb-8">
-              <div className="bg-[#fdfbf7] rounded-full p-8 border-6 border-[#6b4423] shadow-2xl mb-6" style={{ borderWidth: '6px' }}>
-                <div className="transform scale-150">
-                  <Mascot happiness={100} />
-                </div>
-              </div>
-              <h2 className="text-3xl font-rique font-bold text-[#6b4423] text-center mb-2">
-                Your Piggy is Connected!
-              </h2>
-              <p className="text-lg font-lexend text-[#8b6240] text-center max-w-2xl">
-                Your piggy bank is tracking all your connected services to help you save smarter
-              </p>
-            </div>
-
-            {/* Connection Graph - Fixed size */}
-            <div className="relative w-full h-[400px] mb-8">
-              {/* SVG for all connection lines */}
-              <svg 
-                className="absolute inset-0 pointer-events-none" 
-                width="100%" 
-                height="100%"
-                style={{ zIndex: 1 }}
-              >
-                {vendors.map((vendor, index) => {
-                  // Calculate positions in a circle
-                  const angle = (index * 360) / vendors.length - 90; // Start from top
-                  const radius = 35; // Percentage-based radius
-                  const centerX = 50;
-                  const centerY = 50;
-                  const x = centerX + Math.cos((angle * Math.PI) / 180) * radius;
-                  const y = centerY + Math.sin((angle * Math.PI) / 180) * radius;
-
-                  return (
-                    <line
-                      key={vendor.name}
-                      x1={`${centerX}%`}
-                      y1={`${centerY}%`}
-                      x2={`${x}%`}
-                      y2={`${y}%`}
-                      stroke="#6b4423"
-                      strokeWidth="3"
-                      strokeDasharray="8,4"
-                      opacity="0.6"
-                    />
-                  );
-                })}
-              </svg>
-
-              {/* Center Mascot (smaller version) */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: 10
-                }}
-              >
-                <div className="bg-[#fdfbf7] rounded-full p-4 border-4 border-[#6b4423] shadow-xl">
-                  <Mascot happiness={100} />
-                </div>
-              </div>
-
-              {/* Vendor Bubbles positioned in circle */}
-              {vendors.map((vendor, index) => {
-                const angle = (index * 360) / vendors.length - 90; // Start from top
-                const radius = 35; // Percentage-based radius
-                const x = Math.cos((angle * Math.PI) / 180) * radius;
-                const y = Math.sin((angle * Math.PI) / 180) * radius;
-
-                return (
-                  <div
-                    key={vendor.name}
-                    className="absolute transition-all hover:scale-110"
-                    style={{
-                      top: '50%',
-                      left: '50%',
-                      transform: `translate(calc(-50% + ${x}%), calc(-50% + ${y}%))`,
-                      zIndex: 5
-                    }}
-                  >
-                    <div 
-                      className="bg-[#fdfbf7] rounded-full p-3 border-4 border-[#6b4423] shadow-lg hover:shadow-xl transition-all w-20 h-20 flex flex-col items-center justify-center"
-                    >
-                      <div className="text-2xl mb-1">{vendor.logo}</div>
-                      <p className="text-[9px] font-lexend font-bold text-[#6b4423] text-center leading-tight">
-                        {vendor.name.length > 10 ? vendor.name.substring(0, 8) + '...' : vendor.name}
-                      </p>
-                    </div>
+          <div>
+            <h2 className="text-3xl font-rique font-bold text-[#6b4423] mb-6">Connected Services</h2>
+            
+            {/* Simple Grid of Connected Services */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {vendors.map((vendor) => (
+                <div
+                  key={vendor.id}
+                  className="bg-[#f8f3e9] rounded-2xl p-6 shadow-lg border-4 border-[#6b4423] hover:shadow-xl transition-all relative"
+                >
+                  {/* Checkmark badge */}
+                  <div className="absolute top-3 right-3 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                    <span className="text-white font-bold">✓</span>
                   </div>
-                );
-              })}
-            </div>
-
-            {/* Knot-style Connected Services Buttons */}
-            <div className="mt-8">
-              <p className="text-xl font-rique font-bold text-[#6b4423] mb-6 text-center">
-                Connected Services
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {vendors.map((vendor) => (
-                  <div
-                    key={vendor.id}
-                    className="p-5 rounded-2xl border-4 border-[#5a3a1f] bg-[#6b4423] text-[#fdfbf7] shadow-lg hover:scale-105 transition-all relative cursor-default"
-                  >
-                    {/* Checkmark badge */}
-                    <div className="absolute top-2 right-2 w-7 h-7 bg-green-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
-                      <span className="text-white font-bold text-sm">✓</span>
-                    </div>
-                    
-                    <div className="text-4xl mb-2 text-center">{vendor.logo}</div>
-                    <div className="font-rique font-bold text-base text-center">{vendor.name}</div>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="text-5xl mb-3">{vendor.logo}</div>
+                    <div className="font-rique font-bold text-lg text-[#6b4423] text-center">{vendor.name}</div>
                     {vendor.description && (
-                      <div className="text-xs font-lexend mt-1 opacity-90 text-center">{vendor.description}</div>
+                      <div className="text-sm font-lexend text-[#8b6240] mt-2 text-center">{vendor.description}</div>
                     )}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

@@ -1,7 +1,7 @@
 import { useUser } from '@clerk/clerk-react';
 import { useState, useEffect } from 'react';
 import { Mascot } from './Mascot';
-import { fetchAccountBalance, type AccountBalance } from '../../services';
+import { fetchAccountBalance, fetchAIDeals, type AccountBalance } from '../../services';
 
 export const Home = () => {
   const { user } = useUser();
@@ -18,12 +18,24 @@ export const Home = () => {
   const [isLoadingAccount, setIsLoadingAccount] = useState(true);
   const [accountError, setAccountError] = useState<string | null>(null);
 
+  // State for AI deals
+  const [aiDeals, setAIDeals] = useState<Array<{
+    title: string;
+    subtitle: string;
+    description: string;
+    savings: number;
+    category: string;
+    cta: string;
+    icon: string;
+  }>>([]);
+  const [isLoadingDeals, setIsLoadingDeals] = useState(true);
+
   // Weekly savings target
   const [weeklySavingsTarget, setWeeklySavingsTarget] = useState(20);
   const [isEditingTarget, setIsEditingTarget] = useState(false);
   const [tempTarget, setTempTarget] = useState(weeklySavingsTarget.toString());
 
-  // Fetch account balance on component mount
+  // Fetch account balance and AI deals on component mount
   useEffect(() => {
     const loadAccountBalance = async () => {
       try {
@@ -39,7 +51,20 @@ export const Home = () => {
       }
     };
 
+    const loadAIDeals = async () => {
+      try {
+        setIsLoadingDeals(true);
+        const deals = await fetchAIDeals('u_demo_min', 10);
+        setAIDeals(deals);
+      } catch (error) {
+        console.error('Failed to load AI deals:', error);
+      } finally {
+        setIsLoadingDeals(false);
+      }
+    };
+
     loadAccountBalance();
+    loadAIDeals();
   }, []);
 
   const handleEditTarget = () => {
@@ -171,34 +196,43 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Small card */}
-          <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border-4 border-[#6b4423]">
-            <h3 className="text-2xl font-rique font-bold text-[#6b4423] mb-3">Insights</h3>
-            <p className="text-lg font-lexend text-[#8b6240]">0 pending</p>
-          </div>
+          {/* Deals for You Section */}
+          <div className="lg:col-span-3 bg-[#f8f3e9] rounded-3xl p-8 shadow-xl border-4 border-[#6b4423]">
+            <div className="mb-6">
+              <h2 className="text-3xl font-rique font-bold text-[#6b4423]">Deals for You</h2>
+              <p className="text-sm font-lexend text-[#8b6240]">Personalized based on your spending</p>
+            </div>
 
-          {/* Recent Transactions - spans 2 rows */}
-          <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border-4 border-[#6b4423] lg:row-span-2">
-            <h3 className="text-3xl font-rique font-bold mb-3 text-[#6b4423]">Recent Transactions</h3>
-            <p className="text-lg font-lexend text-[#8b6240]">Coming soon...</p>
-          </div>
-
-          {/* Small card */}
-          <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border-4 border-[#6b4423]">
-            <h3 className="text-2xl font-rique font-bold text-[#6b4423] mb-3">Alerts</h3>
-            <p className="text-lg font-lexend text-[#8b6240]">All caught up</p>
-          </div>
-
-          {/* Large card - spans 2 columns */}
-          <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border-4 border-[#6b4423] lg:col-span-2">
-            <h3 className="text-3xl font-rique font-bold text-[#6b4423] mb-3">Recent Activity</h3>
-            <p className="text-lg font-lexend text-[#8b6240]">Nothing to show yet</p>
-          </div>
-
-          {/* Small card */}
-          <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border-4 border-[#6b4423]">
-            <h3 className="text-2xl font-rique font-bold mb-3 text-[#6b4423]">Goals</h3>
-            <p className="text-lg font-lexend text-[#8b6240]">Set your goals</p>
+            {isLoadingDeals ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="w-12 h-12 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : aiDeals.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {aiDeals.map((deal, index) => (
+                  <div
+                    key={index}
+                    className="bg-[#fdfbf7] rounded-xl p-4 border-3 border-[#6b4423] hover:shadow-lg transition-all"
+                  >
+                    <h3 className="text-lg font-rique font-bold text-[#6b4423] mb-1">{deal.title}</h3>
+                    <p className="text-xs font-lexend text-[#8b6240] font-semibold mb-2">{deal.subtitle}</p>
+                    <p className="text-xs font-lexend text-[#6b4423] mb-3">{deal.description}</p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <div className="bg-green-600 text-white px-2 py-1 rounded font-lexend font-bold text-xs">
+                        Save ${deal.savings}/mo
+                      </div>
+                      <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-xs rounded hover:bg-[#5a3a1f] transition-colors">
+                        {deal.cta}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-lg font-lexend text-[#8b6240]">No deals available right now</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
