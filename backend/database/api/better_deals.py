@@ -117,6 +117,10 @@ def generate_better_deals(user_id: str, limit: int = 10) -> List[Dict[str, Any]]
         count = int(purchase.get('PURCHASE_COUNT', 0))
         total_spent = float(purchase.get('TOTAL_SPENT', 0))
         
+        # Only show grocery alternatives for now
+        if category != 'Groceries':
+            continue
+        
         # Check if we have alternative suggestions for this merchant
         for known_merchant, alternatives_data in ALTERNATIVE_STORES.items():
             if known_merchant.lower() in merchant.lower() and merchant not in suggested_merchants:
