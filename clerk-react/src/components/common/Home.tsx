@@ -195,45 +195,45 @@ export const Home = () => {
               )}
             </div>
           </div>
+        </div>
 
-          {/* Deals for You Section */}
-          <div className="lg:col-span-3 bg-[#f8f3e9] rounded-3xl p-8 shadow-xl border-4 border-[#6b4423]">
-            <div className="mb-6">
-              <h2 className="text-3xl font-rique font-bold text-[#6b4423]">Deals for You</h2>
-              <p className="text-sm font-lexend text-[#8b6240]">Personalized based on your spending</p>
-            </div>
-
-            {isLoadingDeals ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="w-12 h-12 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
-              </div>
-            ) : aiDeals.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {aiDeals.map((deal, index) => (
-                  <div
-                    key={index}
-                    className="bg-[#fdfbf7] rounded-2xl p-6 border-4 border-[#6b4423] hover:shadow-xl transition-all hover:scale-[1.02]"
-                  >
-                    <h3 className="text-xl font-rique font-bold text-[#6b4423] mb-2 leading-tight">{deal.title}</h3>
-                    <p className="text-sm font-lexend text-[#8b6240] font-semibold mb-3">{deal.subtitle}</p>
-                    <p className="text-sm font-lexend text-[#6b4423] mb-4 leading-relaxed min-h-[60px]">{deal.description}</p>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <div className="bg-green-600 text-white px-3 py-2 rounded-lg font-lexend font-bold text-sm shadow-md">
-                        Save ${deal.savings}/mo
-                      </div>
-                      <button className="px-4 py-2 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-sm rounded-lg hover:bg-[#5a3a1f] transition-colors shadow-md border-2 border-[#5a3a1f]">
-                        {deal.cta}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-lg font-lexend text-[#8b6240]">No deals available right now</p>
-              </div>
-            )}
+        {/* Deals for You Section */}
+        <div className="mb-8">
+          <div className="mb-6">
+            <h2 className="text-4xl font-rique font-bold text-[#6b4423]">Deals for You</h2>
+            <p className="text-lg font-lexend text-[#8b6240] mt-2">Personalized recommendations based on your spending</p>
           </div>
+
+          {isLoadingDeals ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="w-12 h-12 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : aiDeals.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {aiDeals.map((deal, index) => (
+                <div
+                  key={index}
+                  className="bg-[#f8f3e9] rounded-2xl p-6 border-4 border-[#6b4423] hover:shadow-xl transition-all"
+                >
+                  <h3 className="text-xl font-rique font-bold text-[#6b4423] mb-2 leading-tight">{deal.title}</h3>
+                  <p className="text-sm font-lexend text-[#8b6240] font-semibold mb-3">{deal.subtitle}</p>
+                  <p className="text-sm font-lexend text-[#6b4423] mb-4 leading-relaxed min-h-[60px]">{deal.description}</p>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div className="bg-green-600 text-white px-3 py-2 rounded-lg font-lexend font-bold text-sm shadow-md">
+                      Save ${deal.savings}/mo
+                    </div>
+                    <button className="px-4 py-2 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-sm rounded-lg hover:bg-[#5a3a1f] transition-colors shadow-md border-2 border-[#5a3a1f]">
+                      {deal.cta}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg font-lexend text-[#8b6240]">No deals available right now</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

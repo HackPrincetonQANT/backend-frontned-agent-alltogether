@@ -1465,3 +1465,7 @@ INFO:     127.0.0.1:49734 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8F
 INFO:     127.0.0.1:49736 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
 INFO:     127.0.0.1:49829 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:49830 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49866 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49895 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49896 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
