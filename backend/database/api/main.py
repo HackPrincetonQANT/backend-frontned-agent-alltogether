@@ -12,6 +12,7 @@ from .models import TransactionInsert, UserReply
 from .semantic import search_similar_items
 from .predictor import predict_next_purchases
 from .do_llm import call_do_llm
+from .smart_tips import generate_smart_tips
 
 app = FastAPI(title="BalanceIQ Core API", version="0.1.0")
 
@@ -288,4 +289,33 @@ def api_coach(
         "predictions": predictions,
         "recent_transactions": summarized_txs,
     }
+
+
+# ----------------------------------------------------------------------
+# Smart Tips (Piggy Tips) endpoint
+# ----------------------------------------------------------------------
+
+
+@app.get("/api/smart-tips")
+def api_smart_tips(
+    user_id: str = Query(..., description="User ID"),
+    limit: int = Query(6, ge=1, le=20, description="Max number of tips"),
+) -> List[Dict[str, Any]]:
+    """
+    Smart savings tips endpoint (Piggy Tips).
+    
+    Analyzes user's spending patterns to generate actionable savings recommendations:
+    - High-frequency purchases (daily coffee, etc.)
+    - Underutilized subscriptions
+    - Category overspending
+    - Potential alternatives
+    
+    Returns tips with potential savings amounts and action buttons.
+    """
+    try:
+        tips = generate_smart_tips(user_id=user_id, limit=limit)
+        return tips
+    except Exception as e:
+        print("Smart tips error:", repr(e))
+        raise HTTPException(status_code=500, detail="Failed to generate smart tips")
 

@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react';
-import { fetchUserTransactions } from '../../services';
+import { fetchUserTransactions, fetchSmartTips } from '../../services';
 import type { Transaction } from '../../types';
+
+interface SmartTip {
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  savings: number;
+  action: string;
+  category: string;
+}
 
 export const Insights = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [smartTips, setSmartTips] = useState<SmartTip[]>([]);
   const [loading, setLoading] = useState(true);
   
   // TODO: Replace with actual user ID from Clerk
@@ -13,10 +24,14 @@ export const Insights = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await fetchUserTransactions(userId, 100); // Get more data for insights
-        setTransactions(data);
+        const [transactionsData, tipsData] = await Promise.all([
+          fetchUserTransactions(userId, 100),
+          fetchSmartTips(userId, 6)
+        ]);
+        setTransactions(transactionsData);
+        setSmartTips(tipsData);
       } catch (err) {
-        console.error('Failed to fetch transactions:', err);
+        console.error('Failed to fetch data:', err);
       } finally {
         setLoading(false);
       }
@@ -190,127 +205,44 @@ export const Insights = () => {
                 Don't worry, Piggy will remind you!
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Netflix Tip */}
-                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
-                  <div className="flex items-start gap-3 mb-3">
-                    <span className="text-3xl">📺</span>
-                    <div>
-                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Netflix Usage Low</h3>
-                      <p className="text-xs font-lexend text-[#8b6240] mt-1">Only 2 episodes this month</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
-                    You've barely used Netflix. Consider canceling next month and saving $15.99.
+              {smartTips.length === 0 ? (
+                <div className="bg-[#fdfbf7] rounded-2xl p-8 border-4 border-[#6b4423] text-center">
+                  <p className="text-lg font-rique text-[#6b4423]">
+                    Great job! No major savings opportunities detected right now. 🎉
                   </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-rique font-bold text-green-600">Save $16/mo</span>
-                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
-                      Review
-                    </button>
-                  </div>
-                </div>
-
-                {/* Coffee Tip */}
-                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
-                  <div className="flex items-start gap-3 mb-3">
-                    <span className="text-3xl">☕</span>
-                    <div>
-                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Daily Starbucks</h3>
-                      <p className="text-xs font-lexend text-[#8b6240] mt-1">$5.50 × 22 days = $121/mo</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
-                    Try Dunkin' or make coffee at home. Could save $80+ per month!
+                  <p className="text-sm font-lexend text-[#8b6240] mt-2">
+                    Keep up the good spending habits!
                   </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-rique font-bold text-green-600">Save $80/mo</span>
-                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
-                      Explore
-                    </button>
-                  </div>
                 </div>
-
-                {/* Gym Membership Tip */}
-                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
-                  <div className="flex items-start gap-3 mb-3">
-                    <span className="text-3xl">💪</span>
-                    <div>
-                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Gym Check-ins</h3>
-                      <p className="text-xs font-lexend text-[#8b6240] mt-1">Only 4 visits this month</p>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {smartTips.map((tip, index) => (
+                    <div
+                      key={index}
+                      className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]"
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <span className="text-3xl">{tip.icon}</span>
+                        <div>
+                          <h3 className="text-lg font-rique font-bold text-[#6b4423]">{tip.title}</h3>
+                          <p className="text-xs font-lexend text-[#8b6240] mt-1">{tip.subtitle}</p>
+                        </div>
+                      </div>
+                      <p className="text-sm font-lexend text-[#8b6240] mb-3">
+                        {tip.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-rique font-bold text-green-600">
+                          Save ${tip.savings.toFixed(0)}/mo
+                        </span>
+                        <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
+                          {tip.action}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
-                    You're paying $50/month but barely going. Consider a cheaper plan or home workouts.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-rique font-bold text-green-600">Save $35/mo</span>
-                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
-                      Review
-                    </button>
-                  </div>
+                  ))}
                 </div>
-
-                {/* Subscription Bundling */}
-                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
-                  <div className="flex items-start gap-3 mb-3">
-                    <span className="text-3xl">📱</span>
-                    <div>
-                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Multiple Subscriptions</h3>
-                      <p className="text-xs font-lexend text-[#8b6240] mt-1">5 music/video services</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
-                    Bundle Spotify & Hulu for $10.99 instead of paying separately ($25.98).
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-rique font-bold text-green-600">Save $15/mo</span>
-                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
-                      Bundle
-                    </button>
-                  </div>
-                </div>
-
-                {/* Lunch Spending */}
-                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
-                  <div className="flex items-start gap-3 mb-3">
-                    <span className="text-3xl">🍱</span>
-                    <div>
-                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Daily Takeout</h3>
-                      <p className="text-xs font-lexend text-[#8b6240] mt-1">$15 × 20 days = $300/mo</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
-                    Pack lunch 3 days a week and save over $180/month on food costs.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-rique font-bold text-green-600">Save $180/mo</span>
-                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
-                      Plan
-                    </button>
-                  </div>
-                </div>
-
-                {/* Delivery Fees */}
-                <div className="bg-[#fdfbf7] rounded-2xl p-5 border-4 border-[#6b4423] hover:bg-[#f3ecd8] transition-all hover:scale-[1.02]">
-                  <div className="flex items-start gap-3 mb-3">
-                    <span className="text-3xl">🚗</span>
-                    <div>
-                      <h3 className="text-lg font-rique font-bold text-[#6b4423]">Delivery Fees</h3>
-                      <p className="text-xs font-lexend text-[#8b6240] mt-1">$8.50 average per order</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-lexend text-[#8b6240] mb-3">
-                    You spent $102 on delivery fees alone this month. Try pickup when possible.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-rique font-bold text-green-600">Save $75/mo</span>
-                    <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend text-xs rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors">
-                      Track
-                    </button>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
 

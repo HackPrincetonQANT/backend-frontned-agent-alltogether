@@ -130,3 +130,47 @@ export const fetchCoachRecommendations = async (
     throw error;
   }
 };
+
+/**
+ * Fetch smart savings tips (Piggy Tips)
+ * @param userId - User identifier
+ * @param limit - Maximum number of tips to fetch
+ */
+export const fetchSmartTips = async (
+  userId: string,
+  limit: number = 6
+): Promise<Array<{
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  savings: number;
+  action: string;
+  category: string;
+}>> => {
+  try {
+    const baseUrl = getBackendUrl();
+    const url = `${baseUrl}/api/smart-tips?user_id=${userId}&limit=${limit}`;
+    
+    console.log('Fetching smart tips from:', url);
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Backend API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('Received smart tips:', data);
+    
+    return data;
+  } catch (error) {
+    console.error('Error fetching smart tips:', error);
+    throw error;
+  }
+};
