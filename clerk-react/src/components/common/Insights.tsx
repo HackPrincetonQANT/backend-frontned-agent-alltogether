@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { fetchUserTransactions, fetchSmartTips, fetchBetterDeals } from '../../services';
-import type { Transaction, BetterDeal } from '../../types';
+import { fetchUserTransactions, fetchSmartTips, fetchBetterDeals, fetchPredictions } from '../../services';
+import type { Transaction, BetterDeal, Prediction } from '../../types';
 import { PiggyGraph } from './PiggyGraph';
 
 interface SmartTip {
@@ -17,6 +17,7 @@ export const Insights = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [smartTips, setSmartTips] = useState<SmartTip[]>([]);
   const [betterDeals, setBetterDeals] = useState<BetterDeal[]>([]);
+  const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [loading, setLoading] = useState(true);
   
   // TODO: Replace with actual user ID from Clerk
@@ -26,14 +27,16 @@ export const Insights = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [transactionsData, tipsData, dealsData] = await Promise.all([
+        const [transactionsData, tipsData, dealsData, predictionsData] = await Promise.all([
           fetchUserTransactions(userId, 100),
           fetchSmartTips(userId, 6),
-          fetchBetterDeals(userId, 6)
+          fetchBetterDeals(userId, 6),
+          fetchPredictions(userId, 3)
         ]);
         setTransactions(transactionsData);
         setSmartTips(tipsData);
         setBetterDeals(dealsData);
+        setPredictions(predictionsData);
       } catch (err) {
         console.error('Failed to fetch data:', err);
       } finally {
@@ -316,6 +319,75 @@ export const Insights = () => {
         {/* Piggy Graph Section */}
         <div className="mt-8">
           <PiggyGraph />
+        </div>
+
+        {/* Predicted Purchases Section */}
+        <div className="mt-8">
+          <h2 className="text-3xl font-rique font-bold text-[#6b4423] mb-4">
+            Predicted Purchases
+          </h2>
+          <p className="text-lg font-lexend text-[#8b6240] mb-6">
+            Based on your spending patterns, here's what you're likely to purchase soon
+          </p>
+
+          {predictions.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {predictions.map((prediction, index) => (
+                <div
+                  key={index}
+                  className="bg-[#f8f3e9] rounded-3xl p-6 border-4 border-[#6b4423] shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-rique font-bold text-[#6b4423]">
+                        {prediction.item}
+                      </h3>
+                      <p className="text-sm font-lexend text-[#8b6240] mt-1">
+                        {prediction.category}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-lexend text-[#8b6240]">
+                        Confidence
+                      </span>
+                      <span className="text-sm font-lexend font-bold text-[#6b4423]">
+                        {(prediction.confidence * 100).toFixed(0)}%
+                      </span>
+                    </div>
+
+                    <div className="w-full bg-[#d4c5a9] rounded-full h-3 overflow-hidden">
+                      <div
+                        className="bg-[#6b4423] h-full rounded-full transition-all duration-500"
+                        style={{ width: `${prediction.confidence * 100}%` }}
+                      />
+                    </div>
+
+                    <div className="pt-2 space-y-1">
+                      <p className="text-xs font-lexend text-[#8b6240]">
+                        Expected on {new Date(prediction.next_time).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </p>
+                      <p className="text-xs font-lexend text-[#8b6240]">
+                        Based on {prediction.samples} previous purchase{prediction.samples !== 1 ? 's' : ''}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-[#f8f3e9] rounded-3xl p-8 border-4 border-[#6b4423] text-center">
+              <p className="text-lg font-lexend text-[#8b6240]">
+                No predictions available yet. Keep tracking your spending!
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

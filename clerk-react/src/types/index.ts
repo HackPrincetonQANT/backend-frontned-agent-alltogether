@@ -34,7 +34,8 @@ export interface Prediction {
   item: string;
   confidence: number;
   category: string;
-  estimated_date: string;
+  next_time: string;
+  samples: number;
 }
 
 export interface SmartTip {

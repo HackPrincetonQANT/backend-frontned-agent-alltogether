@@ -67,6 +67,9 @@ export const PiggyGraph = () => {
 
         const data = await response.json();
         console.log('Piggy Graph Data:', data);
+        console.log('Nodes count:', data.nodes?.length);
+        console.log('Edges count:', data.edges?.length);
+        console.log('First edge:', data.edges?.[0]);
 
         setNodes(data.nodes || []);
         setEdges(data.edges || []);
