@@ -196,46 +196,67 @@ async function sendPredictionNotification(recipient, prediction) {
     try {
         console.log(`[PREDICTION] Sending notification about ${prediction.item}`)
         
-        let message = `Oink oink! I'm Piggy, your AI agent who monitors your money!\n\n`
+        let message = `Hey! Piggy here 🐷\n\n`
         
-        // Personalized messages based on category and item
+        // More human, conversational messages with cheaper alternatives
         if (prediction.category === 'Coffee' || prediction.item.toLowerCase().includes('starbucks') || prediction.item.toLowerCase().includes('coffee')) {
-            message += `I noticed you're likely getting coffee soon! Instead of chain coffee shops, check out these local Princeton spots that are cheaper:\n\n`
+            message += `I noticed you usually grab coffee around this time. Quick idea - what if you hit up a cheaper spot instead?\n\n`
+            message += `💰 Switch to these and save big:\n\n`
+            message += `• Small World Coffee on Witherspoon - $3 lattes vs Starbucks' $5+\n`
+            message += `• Whole Earth Center Cafe - great coffee, way cheaper\n`
+            message += `• Even Dunkin is $2 cheaper per drink!\n\n`
+            message += `Making this switch = getting one day closer to your savings goal! Every small change adds up 🎯`
             
-            // Get local cheaper coffee spots near Princeton
-            const coffeeResult = await searchNearbyPlaces('local independent coffee shops cheaper than Starbucks', 'Princeton NJ')
-            if (coffeeResult.success) {
-                message += `Affordable local options:\n\n`
-                coffeeResult.places.forEach(p => {
-                    message += `${p.rank}. ${p.name}\n${p.description.trim()}\n\n`
-                })
-                message += `Supporting local = saving money + better community! 🐷`
-            }
-        } else if (prediction.category === 'Entertainment' || prediction.item.toLowerCase().includes('netflix') || prediction.item.toLowerCase().includes('hulu') || prediction.item.toLowerCase().includes('disney')) {
-            message += `I see you're about to renew ${prediction.item}!\n\n`
+        } else if (prediction.category === 'Entertainment' || prediction.item.toLowerCase().includes('netflix') || prediction.item.toLowerCase().includes('hulu') || prediction.item.toLowerCase().includes('spotify')) {
             
             if (prediction.item.toLowerCase().includes('netflix')) {
-                message += `Quick thought: Maybe consider canceling Netflix for this month if you've only watched a few episodes? You could save that subscription fee and re-subscribe when you have more time to watch!\n\n`
-                message += `Or, bundle Disney+ and Hulu together to save money if you use both!`
+                message += `Your Netflix renewal is coming up soon!\n\n`
+                message += `Real talk: if you've only watched 2-3 episodes this month, maybe skip it? You could save $23 right there.\n\n`
+                message += `Or share an account with friends/family - split the cost = instant savings.\n\n`
+                message += `That saved money = one day closer to your goal! 💪`
+                
             } else if (prediction.item.toLowerCase().includes('disney') || prediction.item.toLowerCase().includes('hulu')) {
-                message += `Pro tip: Bundle Disney+ and Hulu together! You'll save about $43.97 per year compared to paying separately. That's like 6 free coffees!`
-            } else {
-                message += `Have you been using it much? If not, maybe pause this month and save some cash!`
+                message += `Subscription renewal coming up!\n\n`
+                message += `Pro move: Get the Disney+Hulu bundle instead of separate subscriptions. You'll save like $12/month - that's $144/year!\n\n`
+                message += `Switch now = get way closer to your savings target 🎯`
+                
+            } else if (prediction.item.toLowerCase().includes('spotify')) {
+                message += `Spotify renewal coming!\n\n`
+                message += `Student? Get Spotify Student - it's 50% off! That's $5.50/month instead of $10.99.\n\n`
+                message += `Or split a Family plan with friends - works out to ~$3/person.\n\n`
+                message += `Music is essential, but cheaper music is better music 🎵`
             }
-        } else if (prediction.category === 'Groceries' || prediction.item.toLowerCase().includes('trader') || prediction.item.toLowerCase().includes('grocery')) {
-            message += `Time for grocery shopping soon! Skip the expensive stores and save BIG at these spots:\n\n`
             
-            message += `🏪 Budget-Friendly Options:\n\n`
-            message += `1. Aldi - Up to 50% cheaper than traditional supermarkets! Same quality, way less money. They have locations in Lawrenceville and Hamilton.\n\n`
-            message += `2. Dollar Tree - Everything is $1.25! Great for pantry staples, snacks, cleaning supplies. Location in Princeton Shopping Center.\n\n`
-            message += `3. Lidl - Similar to Aldi, awesome deals on fresh produce and dairy. Check out the Hamilton location.\n\n`
-            message += `Pro tip: Aldi's private label brands are often made by the same manufacturers as name brands - you're literally paying for the packaging at other stores! 💰`
+        } else if (prediction.category === 'Food' || prediction.item.toLowerCase().includes('uber eats') || prediction.item.toLowerCase().includes('doordash')) {
+            message += `Looks like you're about to order food delivery again!\n\n`
+            message += `🍔 Here's the thing - delivery apps mark up prices AND charge fees. You're paying like 30-40% more.\n\n`
+            message += `Try this instead:\n`
+            message += `• Walk to Chipotle on Nassau St (5min)\n`
+            message += `• Hit up Hoagie Haven (cash only, super cheap)\n`
+            message += `• Or go crazy - cook at home with Aldi groceries\n\n`
+            message += `Skip one delivery = $15 saved = one day closer to your goal! 💸`
+            
+        } else if (prediction.category === 'Groceries' || prediction.item.toLowerCase().includes('trader') || prediction.item.toLowerCase().includes('grocery')) {
+            message += `Grocery shopping time!\n\n`
+            message += `💡 Skip Trader Joe's and go to ALDI instead:\n\n`
+            message += `Same quality stuff (literally same manufacturers), but 40-60% cheaper. Your $100 grocery bill becomes $60.\n\n`
+            message += `Locations:\n`
+            message += `• Aldi Lawrence (20min)\n`
+            message += `• Aldi Hamilton (25min)\n\n`
+            message += `One Aldi trip = $40 saved = getting WAY closer to your goal! 🎯`
+            
         } else if (prediction.category === 'Transport' || prediction.item.toLowerCase().includes('uber') || prediction.item.toLowerCase().includes('lyft')) {
-            message += `I see you might be taking a ride soon!\n\n`
-            message += `Quick tip: Compare Uber vs Lyft prices before booking - sometimes one can be significantly cheaper! Or consider NJ Transit if you're going into the city.`
+            message += `About to call an Uber?\n\n`
+            message += `🚌 Real talk - try these cheaper options:\n\n`
+            message += `• TigerTransit (FREE!) - goes all over campus\n`
+            message += `• NJ Transit - like $8 to NYC vs $60+ Uber\n`
+            message += `• Walk if it's under 15min (free + exercise!)\n\n`
+            message += `Skip the Uber = $30 saved = one ride closer to your savings goal! 💪`
+            
         } else {
-            message += `I'm ${(prediction.confidence * 100).toFixed(0)}% confident you'll be purchasing "${prediction.item}" around ${new Date(prediction.next_time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}.\n\n`
-            message += `Want me to find you better deals or cheaper alternatives nearby? Just let me know!`
+            message += `I'm predicting you'll buy "${prediction.item}" soon.\n\n`
+            message += `Want me to find you cheaper alternatives? Every dollar you save gets you one day closer to hitting your savings goal!\n\n`
+            message += `Just reply and I'll find you the best deals 🎯`
         }
 
         await sendMessage(recipient, message)

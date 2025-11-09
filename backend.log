@@ -1477,3 +1477,44 @@ INFO:     Finished server process [91143]
 INFO:     Started server process [95898]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
+INFO:     127.0.0.1:49954 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49955 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49957 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49954 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49955 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49957 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+✅ Saved: Courtyard by Marriott · Restaurant Charge - $20.67 (Other)
+✅ Saved: Courtyard by Marriott · Gratuity - $3.00 (Other)
+INFO:     127.0.0.1:49989 - "POST /api/receipt/process HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50005 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50006 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50006 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50005 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50022 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50005 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50006 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50021 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50055 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50056 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50057 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50055 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50056 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50059 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50058 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50056 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50054 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50055 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50059 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50057 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+INFO:     127.0.0.1:50056 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50058 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:50055 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:50054 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
