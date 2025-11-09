@@ -4,6 +4,7 @@ from typing import List, Dict, Any
 from collections import defaultdict
 from .db import fetch_all
 from .do_llm import call_do_llm
+from .graph_storage import save_graph_to_db
 
 
 def generate_piggy_graph(user_id: str) -> Dict[str, Any]:
@@ -207,6 +208,7 @@ CRITICAL REQUIREMENTS:
         'id': 'edge_piggy_location',
         'source': 'piggy',
         'target': 'category_location',
+        'type': 'smoothstep',
         'animated': True,
         'style': {'stroke': '#6b4423', 'strokeWidth': 3}
     })
@@ -225,6 +227,7 @@ CRITICAL REQUIREMENTS:
         'id': 'edge_piggy_frequency',
         'source': 'piggy',
         'target': 'category_frequency',
+        'type': 'smoothstep',
         'animated': True,
         'style': {'stroke': '#6b4423', 'strokeWidth': 3}
     })
@@ -243,6 +246,7 @@ CRITICAL REQUIREMENTS:
         'id': 'edge_piggy_preferences',
         'source': 'piggy',
         'target': 'category_preferences',
+        'type': 'smoothstep',
         'animated': True,
         'style': {'stroke': '#6b4423', 'strokeWidth': 3}
     })
@@ -265,6 +269,7 @@ CRITICAL REQUIREMENTS:
             'id': f"edge_loc_{node_id}",
             'source': 'category_location',
             'target': node_id,
+            'type': 'smoothstep',
             'animated': False,
             'style': {'stroke': '#8b6240', 'strokeWidth': 2}
         })
@@ -287,6 +292,7 @@ CRITICAL REQUIREMENTS:
             'id': f"edge_freq_{node_id}",
             'source': 'category_frequency',
             'target': node_id,
+            'type': 'smoothstep',
             'animated': False,
             'style': {'stroke': '#8b6240', 'strokeWidth': 2}
         })
@@ -309,6 +315,7 @@ CRITICAL REQUIREMENTS:
             'id': f"edge_pref_{node_id}",
             'source': 'category_preferences',
             'target': node_id,
+            'type': 'smoothstep',
             'animated': False,
             'style': {'stroke': '#8b6240', 'strokeWidth': 2}
         })
@@ -316,7 +323,8 @@ CRITICAL REQUIREMENTS:
     # Combine all insights for legacy support
     all_insights = location_insights + frequency_insights + preference_insights
     
-    return {
+    # Prepare response data
+    response_data = {
         'nodes': nodes,
         'edges': edges,
         'insights': {
@@ -331,3 +339,17 @@ CRITICAL REQUIREMENTS:
             'total_spent': sum(category_totals.values())
         }
     }
+    
+    # Save graph data to Snowflake for later use in recommendations
+    try:
+        save_graph_to_db(
+            user_id=user_id,
+            nodes=nodes,
+            edges=edges,
+            insights=response_data['insights'],
+            stats=response_data['stats']
+        )
+    except Exception as e:
+        print(f"Warning: Could not save graph to database: {e}")
+    
+    return response_data
