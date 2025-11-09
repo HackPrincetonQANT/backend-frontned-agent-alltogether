@@ -208,20 +208,20 @@ export const Home = () => {
                 <div className="w-12 h-12 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
               </div>
             ) : aiDeals.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {aiDeals.map((deal, index) => (
                   <div
                     key={index}
-                    className="bg-[#fdfbf7] rounded-xl p-4 border-3 border-[#6b4423] hover:shadow-lg transition-all"
+                    className="bg-[#fdfbf7] rounded-2xl p-6 border-4 border-[#6b4423] hover:shadow-xl transition-all hover:scale-[1.02]"
                   >
-                    <h3 className="text-lg font-rique font-bold text-[#6b4423] mb-1">{deal.title}</h3>
-                    <p className="text-xs font-lexend text-[#8b6240] font-semibold mb-2">{deal.subtitle}</p>
-                    <p className="text-xs font-lexend text-[#6b4423] mb-3">{deal.description}</p>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <div className="bg-green-600 text-white px-2 py-1 rounded font-lexend font-bold text-xs">
+                    <h3 className="text-xl font-rique font-bold text-[#6b4423] mb-2 leading-tight">{deal.title}</h3>
+                    <p className="text-sm font-lexend text-[#8b6240] font-semibold mb-3">{deal.subtitle}</p>
+                    <p className="text-sm font-lexend text-[#6b4423] mb-4 leading-relaxed min-h-[60px]">{deal.description}</p>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="bg-green-600 text-white px-3 py-2 rounded-lg font-lexend font-bold text-sm shadow-md">
                         Save ${deal.savings}/mo
                       </div>
-                      <button className="px-3 py-1 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-xs rounded hover:bg-[#5a3a1f] transition-colors">
+                      <button className="px-4 py-2 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-sm rounded-lg hover:bg-[#5a3a1f] transition-colors shadow-md border-2 border-[#5a3a1f]">
                         {deal.cta}
                       </button>
                     </div>

@@ -6,6 +6,13 @@ from .db import fetch_all
 
 # Price comparison data for common merchants
 ALTERNATIVE_STORES = {
+    'Uber Eats': {
+        'alternatives': [
+            {'name': 'Aldi', 'price_diff': -70, 'emoji': '🛒'},
+            {'name': "Trader Joe's + Cook", 'price_diff': -65, 'emoji': '👨‍🍳'},
+            {'name': 'Campus Dining', 'price_diff': -50, 'emoji': '🍽️'},
+        ]
+    },
     'Starbucks': {
         'alternatives': [
             {'name': 'Dunkin', 'price_diff': -40, 'emoji': '☕'},
@@ -18,6 +25,13 @@ ALTERNATIVE_STORES = {
             {'name': 'Aldi', 'price_diff': -30, 'emoji': '🛒'},
             {'name': 'Costco', 'price_diff': -25, 'emoji': '📦'},
             {'name': 'Walmart', 'price_diff': -20, 'emoji': '🏪'},
+        ]
+    },
+    'Uber': {
+        'alternatives': [
+            {'name': 'NJ Transit Bus', 'price_diff': -85, 'emoji': '🚌'},
+            {'name': 'TigerTransit (Free)', 'price_diff': -100, 'emoji': '🐯'},
+            {'name': 'Walk/Bike', 'price_diff': -100, 'emoji': '🚶'},
         ]
     },
     'Target': {
@@ -58,6 +72,14 @@ ALTERNATIVE_STORES = {
         'alternatives': [
             {'name': 'Disney+Hulu Bundle', 'price_diff': -35, 'emoji': '🎬'},
             {'name': 'Hulu (w/ads)', 'price_diff': -45, 'emoji': '📺'},
+            {'name': 'Share Account', 'price_diff': -60, 'emoji': '👨‍👩‍👧'},
+        ]
+    },
+    'Spotify': {
+        'alternatives': [
+            {'name': 'Spotify Student', 'price_diff': -50, 'emoji': '🎓'},
+            {'name': 'YouTube Music', 'price_diff': -30, 'emoji': '▶️'},
+            {'name': 'Spotify Family Split', 'price_diff': -70, 'emoji': '👨‍👩‍👧'},
         ]
     },
     'Netflix': {
@@ -91,16 +113,13 @@ def generate_better_deals(user_id: str, limit: int = 10) -> List[Dict[str, Any]]
     sql = """
         SELECT
           MERCHANT,
-          ITEM_NAME,
           CATEGORY,
-          PRICE,
           COUNT(*) as purchase_count,
           SUM(PRICE) as total_spent
         FROM SNOWFLAKE_LEARNING_DB.BALANCEIQ_CORE.PURCHASE_ITEMS_TEST
         WHERE USER_ID = %s
-          AND TS >= DATEADD('day', -30, CURRENT_TIMESTAMP())
-        GROUP BY MERCHANT, ITEM_NAME, CATEGORY, PRICE
-        HAVING COUNT(*) >= 1
+        GROUP BY MERCHANT, CATEGORY
+        HAVING SUM(PRICE) >= 20
         ORDER BY total_spent DESC
     """
     
@@ -111,14 +130,12 @@ def generate_better_deals(user_id: str, limit: int = 10) -> List[Dict[str, Any]]
     
     for purchase in purchases:
         merchant = purchase.get('MERCHANT', '')
-        item_name = purchase.get('ITEM_NAME', '')
         category = purchase.get('CATEGORY', 'Other')
-        price = float(purchase.get('PRICE', 0))
         count = int(purchase.get('PURCHASE_COUNT', 0))
         total_spent = float(purchase.get('TOTAL_SPENT', 0))
         
-        # Only show grocery alternatives for now
-        if category != 'Groceries':
+        # Skip if spending is too low (less than $20)
+        if total_spent < 20:
             continue
         
         # Check if we have alternative suggestions for this merchant

@@ -1327,3 +1327,141 @@ INFO:     Finished server process [82667]
 INFO:     Started server process [84013]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
+INFO:     127.0.0.1:49330 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762678264016, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': '60f038da-b62c-41aa-9231-ba8cc780b4e5', 'task_id': 62250866, 'external_user_id': 'test_3_1762678186', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User test_3_1762678186 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/better_deals.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [84013]
+INFO:     Started server process [86753]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/better_deals.py'. Reloading...
+📬 Received Knot webhook: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762678270397, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'test_3_1762678186'}
+🔔 Knot event: NEW_TRANSACTIONS_AVAILABLE
+✅ Transaction webhook for Uber Eats (user: test_3_1762678186)
+🔄 Attempting to sync transactions from Knot API...
+🔵 Syncing transactions from https://production.knotapi.com/transactions/sync
+🔵 Body: {'merchant_id': 36, 'external_user_id': 'test_3_1762678186', 'limit': 50}
+🔵 Response status: 200
+✅ Got 3 transactions from Uber Eats
+📦 Received 3 transactions from Knot
+🔄 Transformed into 9 items
+✅ Saved 9 items to Snowflake from Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [86753]
+INFO:     Started server process [86825]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49433 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/better_deals.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [86825]
+INFO:     Started server process [87584]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/better_deals.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [87584]
+INFO:     Started server process [87617]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49462 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/better_deals.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [87617]
+INFO:     Started server process [87872]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49484 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49510 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=10 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/better_deals.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [87872]
+INFO:     Started server process [89718]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49525 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49538 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49547 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49566 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49567 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49582 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49583 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49584 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49585 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49582 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49583 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49584 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49585 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49566 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49567 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49582 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49567 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49584 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49583 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49585 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49566 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49567 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+INFO:     127.0.0.1:49582 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49583 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49584 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/smart_tips.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [89718]
+INFO:     Started server process [90946]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/smart_tips.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [90946]
+INFO:     Started server process [91143]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49688 - "GET /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49698 - "GET /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49719 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49720 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49733 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49735 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49734 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49736 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49720 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+INFO:     127.0.0.1:49733 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49735 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+INFO:     127.0.0.1:49719 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49734 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49736 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49829 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49830 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
