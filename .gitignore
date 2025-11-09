@@ -1,0 +1,21 @@
+# Logs
+*.log
+backend.log
+frontend.log
+
+# Process IDs
+.backend.pid
+.frontend.pid
+
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
