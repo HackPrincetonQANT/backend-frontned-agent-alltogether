@@ -2,10 +2,19 @@ import { IMessageSDK } from '@photon-ai/imessage-kit'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import fs from 'fs/promises'
 import dotenv from 'dotenv'
+import express from 'express'
+import cors from 'cors'
 
 dotenv.config()
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+const PORT = process.env.AGENT_PORT || 3001
+const TEST_NUMBER = process.env.TEST_NUMBER || '+15514049519'
+
+// Express server for API endpoints
+const app = express()
+app.use(cors())
+app.use(express.json())
 
 const sdk = new IMessageSDK({
     debug: true,
@@ -150,14 +159,108 @@ async function sendRecommendation(recipient, query, location) {
     }
 }
 
+// FUNCTION 5: Send prediction notification with personalized recommendations
+async function sendPredictionNotification(recipient, prediction) {
+    try {
+        console.log(`[PREDICTION] Sending notification about ${prediction.item}`)
+        
+        let message = `Oink oink! I'm Piggy, your AI agent who monitors your money!\n\n`
+        
+        // Personalized messages based on category and item
+        if (prediction.category === 'Coffee' || prediction.item.toLowerCase().includes('starbucks') || prediction.item.toLowerCase().includes('coffee')) {
+            message += `I noticed you're likely getting coffee soon! Maybe try visiting some cheaper coffee spots nearby?\n\n`
+            
+            // Get cheaper coffee recommendations
+            const coffeeResult = await searchNearbyPlaces('coffee', 'Princeton University')
+            if (coffeeResult.success) {
+                message += `Here are some affordable options:\n\n`
+                coffeeResult.places.forEach(p => {
+                    message += `${p.rank}. ${p.name}\n${p.description.trim()}\n\n`
+                })
+            }
+        } else if (prediction.category === 'Entertainment' || prediction.item.toLowerCase().includes('netflix') || prediction.item.toLowerCase().includes('hulu') || prediction.item.toLowerCase().includes('disney')) {
+            message += `I see you're about to renew ${prediction.item}!\n\n`
+            
+            if (prediction.item.toLowerCase().includes('netflix')) {
+                message += `Quick thought: Maybe consider canceling Netflix for this month if you've only watched a few episodes? You could save that subscription fee and re-subscribe when you have more time to watch!\n\n`
+                message += `Or, bundle Disney+ and Hulu together to save money if you use both!`
+            } else if (prediction.item.toLowerCase().includes('disney') || prediction.item.toLowerCase().includes('hulu')) {
+                message += `Pro tip: Bundle Disney+ and Hulu together! You'll save about $43.97 per year compared to paying separately. That's like 6 free coffees!`
+            } else {
+                message += `Have you been using it much? If not, maybe pause this month and save some cash!`
+            }
+        } else if (prediction.category === 'Groceries' || prediction.item.toLowerCase().includes('trader') || prediction.item.toLowerCase().includes('grocery')) {
+            message += `Time for grocery shopping soon! Want to save money?\n\n`
+            
+            const groceryResult = await searchNearbyPlaces('cheap groceries', 'Princeton')
+            if (groceryResult.success) {
+                message += `Check out these affordable grocery stores:\n\n`
+                groceryResult.places.forEach(p => {
+                    message += `${p.rank}. ${p.name}\n${p.description.trim()}\n\n`
+                })
+            }
+        } else if (prediction.category === 'Transport' || prediction.item.toLowerCase().includes('uber') || prediction.item.toLowerCase().includes('lyft')) {
+            message += `I see you might be taking a ride soon!\n\n`
+            message += `Quick tip: Compare Uber vs Lyft prices before booking - sometimes one can be significantly cheaper! Or consider NJ Transit if you're going into the city.`
+        } else {
+            message += `I'm ${(prediction.confidence * 100).toFixed(0)}% confident you'll be purchasing "${prediction.item}" around ${new Date(prediction.next_time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}.\n\n`
+            message += `Want me to find you better deals or cheaper alternatives nearby? Just let me know!`
+        }
+
+        await sendMessage(recipient, message)
+        console.log(`[PREDICTION] Notification sent to ${recipient}`)
+        return { success: true }
+    } catch (error) {
+        console.error(`[PREDICTION ERROR] ${error.message}`)
+        return { success: false, error: error.message }
+    }
+}
+
+// API ENDPOINTS
+app.post('/api/ping-prediction', async (req, res) => {
+    try {
+        const { prediction, userId } = req.body
+        
+        if (!prediction) {
+            return res.status(400).json({ error: 'Missing prediction data' })
+        }
+
+        console.log(`[API] Ping prediction request for ${prediction.item}`)
+        
+        // Send iMessage notification
+        const result = await sendPredictionNotification(TEST_NUMBER, prediction)
+        
+        if (result.success) {
+            res.json({ 
+                success: true, 
+                message: 'Notification sent via iMessage',
+                prediction: prediction.item
+            })
+        } else {
+            res.status(500).json({ 
+                success: false, 
+                error: result.error 
+            })
+        }
+    } catch (error) {
+        console.error('[API ERROR]', error)
+        res.status(500).json({ error: error.message })
+    }
+})
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', message: 'Piggy agent is running' })
+})
+
+// Start HTTP server
+app.listen(PORT, () => {
+    console.log(`[API] Piggy agent API listening on port ${PORT}`)
+})
+
 // Start bot
 console.log('[START] Piggy bot initialized\n')
 
-const TEST_NUMBER = process.env.TEST_NUMBER || '+15514049519'
-await sendMessage(TEST_NUMBER, "Hi! I'm Piggy. I'm online!")
-
-// Send recommendation for cheap coffee spots at Princeton
-await sendRecommendation(TEST_NUMBER, 'coffee', 'Princeton University')
+// Don't send intro messages automatically - only respond to user requests
 
 await sdk.startWatching({
     onNewMessage: async (msg) => {

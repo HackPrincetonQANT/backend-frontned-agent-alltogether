@@ -19,9 +19,41 @@ export const Insights = () => {
   const [betterDeals, setBetterDeals] = useState<BetterDeal[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [loading, setLoading] = useState(true);
+  const [pingingPrediction, setPingingPrediction] = useState<number | null>(null);
   
   // TODO: Replace with actual user ID from Clerk
   const userId = 'u_demo_min';
+
+  const handlePingPrediction = async (prediction: Prediction, index: number) => {
+    try {
+      setPingingPrediction(index);
+      
+      const agentUrl = import.meta.env.VITE_AGENT_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${agentUrl}/api/ping-prediction`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prediction,
+          userId
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`Sent you an iMessage about ${prediction.item}!`);
+      } else {
+        alert(`Failed to send message: ${data.error}`);
+      }
+    } catch (error) {
+      console.error('Error pinging prediction:', error);
+      alert('Failed to send message. Make sure the agent is running!');
+    } finally {
+      setPingingPrediction(null);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -377,6 +409,14 @@ export const Insights = () => {
                         Based on {prediction.samples} previous purchase{prediction.samples !== 1 ? 's' : ''}
                       </p>
                     </div>
+
+                    <button
+                      onClick={() => handlePingPrediction(prediction, index)}
+                      disabled={pingingPrediction === index}
+                      className="mt-4 w-full bg-[#6b4423] hover:bg-[#5a3a1f] text-[#fdfbf7] font-rique font-bold py-3 px-4 rounded-2xl transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                    >
+                      {pingingPrediction === index ? 'Sending...' : 'Ping Me Now'}
+                    </button>
                   </div>
                 </div>
               ))}
