@@ -16,11 +16,12 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
     - High-frequency expensive items (like daily coffee)
     - Underutilized recurring payments
     - Category-based overspending
+    - Bundle opportunities (Disney+Hulu, etc.)
     """
     
     tips = []
     
-    # 1. Analyze transaction patterns from last 30 days
+    # 1. Analyze transaction patterns from last 60 days for subscriptions
     sql_recent = """
         SELECT
           ITEM_NAME,
@@ -30,7 +31,7 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
           TS
         FROM SNOWFLAKE_LEARNING_DB.BALANCEIQ_CORE.PURCHASE_ITEMS_TEST
         WHERE USER_ID = %s
-          AND TS >= DATEADD('day', -30, CURRENT_TIMESTAMP())
+          AND TS >= DATEADD('day', -60, CURRENT_TIMESTAMP())
         ORDER BY TS DESC
     """
     
@@ -139,11 +140,50 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
                         'category': data['category']
                     })
     
-    # 5. Convert all Decimal to float for JSON serialization
+    # 5. Detect bundle opportunities (Disney+ & Hulu)
+    has_disney = any('disney' in key.lower() for key in item_patterns.keys())
+    has_hulu = any('hulu' in key.lower() for key in item_patterns.keys())
+    
+    if has_disney and has_hulu:
+        # Calculate current spending
+        disney_cost = sum(data['total_spent'] for key, data in item_patterns.items() if 'disney' in key.lower())
+        hulu_cost = sum(data['total_spent'] for key, data in item_patterns.items() if 'hulu' in key.lower())
+        current_total = disney_cost + hulu_cost
+        
+        # Disney Bundle (Disney+ & Hulu) costs $19.99/month vs separate $13.99 + $17.99 = $31.98
+        bundle_cost = 19.99
+        savings_amount = current_total - bundle_cost
+        
+        if savings_amount > 5:  # Only suggest if meaningful savings
+            tips.append({
+                'icon': '🎬',
+                'title': 'Bundle Disney+ & Hulu',
+                'subtitle': f'Paying ${current_total:.2f}/mo separately',
+                'description': f'The Disney Bundle (Disney+ & Hulu) costs $19.99/mo vs ${current_total:.2f}/mo for separate subscriptions.',
+                'savings': savings_amount,
+                'action': 'Bundle',
+                'category': 'Entertainment'
+            })
+    
+    # 6. Detect underused gym membership
+    for key, data in item_patterns.items():
+        if 'gym' in data['item_name'].lower() or 'fitness' in data['item_name'].lower():
+            if data['count'] == 1:  # Only 1 charge in 60 days = not using it
+                tips.append({
+                    'icon': '💪',
+                    'title': f"Unused {data['item_name']}",
+                    'subtitle': f"Only 1 visit in 60 days",
+                    'description': f"You're paying ${data['total_spent']:.2f}/month but haven't been going. Consider canceling or finding motivation!",
+                    'savings': data['total_spent'],
+                    'action': 'Cancel',
+                    'category': data['category']
+                })
+    
+    # 7. Convert all Decimal to float for JSON serialization
     for tip in tips:
         tip['savings'] = float(tip['savings'])
     
-    # 6. Sort by potential savings and return top tips
+    # 8. Sort by potential savings and return top tips
     tips_sorted = sorted(tips, key=lambda x: x['savings'], reverse=True)[:limit]
     
     return tips_sorted
