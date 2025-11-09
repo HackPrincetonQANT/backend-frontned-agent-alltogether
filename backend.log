@@ -172,3 +172,11 @@ INFO:     Finished server process [89177]
 INFO:     Started server process [92600]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [92600]
+INFO:     Started server process [95357]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

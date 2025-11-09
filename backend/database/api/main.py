@@ -647,3 +647,111 @@ def get_ai_deals(
         deals.extend(default_deals[:limit - len(deals)])
     
     return deals[:limit]
+
+
+# ----------------------------------------------------------------------
+# Knot API Integration Endpoints
+# ----------------------------------------------------------------------
+
+@app.get("/api/knot/merchants")
+def get_knot_merchants():
+    """
+    Get list of available merchants from Knot API for TransactionLink
+    """
+    from .knot_client import knot_client
+    
+    try:
+        merchants = knot_client.list_merchants()
+        return {"merchants": merchants, "count": len(merchants)}
+    except Exception as e:
+        print(f"Error fetching Knot merchants: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch merchants: {str(e)}")
+
+
+@app.post("/api/knot/session")
+def create_knot_session(
+    user_id: str = Query(..., description="Internal user ID"),
+    merchant_id: int = Query(None, description="Optional merchant ID to pre-select")
+):
+    """
+    Create a Knot session for user to link their merchant account
+    """
+    from .knot_client import knot_client
+    
+    try:
+        session = knot_client.create_session(user_id, merchant_id)
+        if session:
+            return session
+        else:
+            raise HTTPException(status_code=500, detail="Failed to create session")
+    except Exception as e:
+        print(f"Error creating Knot session: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to create session: {str(e)}")
+
+
+@app.get("/api/knot/accounts")
+def get_knot_accounts(user_id: str = Query(..., description="Internal user ID")):
+    """
+    Get all linked merchant accounts for a user from Knot
+    """
+    from .knot_client import knot_client
+    
+    try:
+        accounts = knot_client.get_merchant_accounts(user_id)
+        return {"accounts": accounts, "count": len(accounts)}
+    except Exception as e:
+        print(f"Error fetching Knot accounts: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch accounts: {str(e)}")
+
+
+@app.post("/api/knot/sync")
+def sync_knot_transactions(
+    user_id: str = Query(..., description="Internal user ID for Snowflake"),
+    knot_user_id: str = Query(None, description="Knot user ID if different")
+):
+    """
+    Sync all transactions from Knot API to Snowflake for a user
+    This will:
+    1. Fetch all transactions from user's connected Knot merchant accounts
+    2. Transform them into our Snowflake format
+    3. Save to PURCHASE_ITEMS_TEST table
+    """
+    from .knot_sync import sync_user_transactions_from_knot
+    
+    try:
+        result = sync_user_transactions_from_knot(user_id, knot_user_id)
+        return result
+    except Exception as e:
+        print(f"Error syncing Knot transactions: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to sync transactions: {str(e)}")
+
+
+@app.get("/api/knot/sync-status")
+def get_sync_status(user_id: str = Query(..., description="Internal user ID")):
+    """
+    Get sync status for a user - shows connected accounts and last sync info
+    """
+    from .knot_client import knot_client
+    
+    try:
+        accounts = knot_client.get_merchant_accounts(user_id)
+        
+        connected_accounts = [
+            {
+                "merchant": acc.get("merchant", {}).get("name"),
+                "merchant_id": acc.get("merchant", {}).get("id"),
+                "status": acc.get("connection", {}).get("status"),
+                "account_id": acc.get("id")
+            }
+            for acc in accounts
+        ]
+        
+        return {
+            "user_id": user_id,
+            "connected_accounts": connected_accounts,
+            "total_accounts": len(accounts),
+            "connected_count": sum(1 for acc in accounts if acc.get("connection", {}).get("status") == "connected")
+        }
+    except Exception as e:
+        print(f"Error fetching sync status: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch sync status: {str(e)}")
