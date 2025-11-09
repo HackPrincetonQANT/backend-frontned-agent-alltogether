@@ -134,49 +134,141 @@ CRITICAL REQUIREMENTS:
             raise ValueError("No JSON found in LLM response")
     except Exception as e:
         print(f"LLM insight generation failed: {e}, using fallback")
-        # Fallback insights with Princeton specifics
+        # Fallback insights with SPECIFIC details based on actual data
         location_insights = []
         frequency_insights = []
         preference_insights = []
         
-        # Location insights
-        if 'Starbucks' in frequent_merchants:
+        # Location insights - Be VERY specific about Princeton locations
+        for merchant, count in sorted(merchant_counts.items(), key=lambda x: x[1], reverse=True)[:4]:
+            if merchant == 'Uber Eats' and count > 10:
+                location_insights.append({
+                    'title': 'Uber Eats - Delivers to Campus',
+                    'description': f'{count} orders delivered - Likely to dorm/apartment near Princeton campus, probably Nassau Street area'
+                })
+            elif merchant == 'Starbucks':
+                location_insights.append({
+                    'title': 'Starbucks - Nassau St/Frist Center',
+                    'description': f'{count} visits - Most likely Palmer Square location or Frist Campus Center inside Princeton University'
+                })
+            elif "Trader Joe" in merchant:
+                location_insights.append({
+                    'title': "Trader Joe's on Nassau Street",
+                    'description': f'{count} trips to Nassau Street location near Princeton Shopping Center - {merchant_locations.get(merchant, "walking distance")}'
+                })
+            elif merchant == 'Chipotle':
+                location_insights.append({
+                    'title': 'Chipotle Near Princeton',
+                    'description': f'{count} visits - Located on Nassau Street, walking distance from Princeton University campus'
+                })
+            elif merchant == 'Target':
+                location_insights.append({
+                    'title': 'Target - Princeton Shopping Ctr',
+                    'description': f'{count} visits - Located at Princeton Shopping Center on North Harrison Street'
+                })
+        
+        # If no specific locations found, add general ones
+        if not location_insights:
             location_insights.append({
-                'title': 'Starbucks - Nassau Street/Frist',
-                'description': f'{frequent_merchants["Starbucks"]} visits - Likely Palmer Square or Frist Campus Center location'
-            })
-        if "Trader Joe's" in str(merchant_counts):
-            location_insights.append({
-                'title': "Trader Joe's - Nassau Street",
-                'description': 'Near Princeton Shopping Center on Nassau Street'
+                'title': 'Online Shopping Preferred',
+                'description': 'Most purchases appear to be online deliveries or digital services'
             })
         
-        # Frequency insights
+        # Frequency insights - Be SPECIFIC about visit patterns
         if frequent_merchants:
             top_merchant = max(frequent_merchants.items(), key=lambda x: x[1])
+            visits_per_day = round(top_merchant[1] / 30, 1)
+            
+            if top_merchant[0] == 'Uber Eats':
+                frequency_insights.append({
+                    'title': f'Heavy Uber Eats User',
+                    'description': f'{top_merchant[1]} orders in 30 days - More than once daily on average, suggests relying on delivery for meals'
+                })
+            elif 'Starbucks' in top_merchant[0]:
+                frequency_insights.append({
+                    'title': 'Daily Coffee Routine',
+                    'description': f'{top_merchant[1]} visits in 30 days - Nearly daily Starbucks stops, likely between classes or study sessions'
+                })
+            else:
+                frequency_insights.append({
+                    'title': f'Frequent {top_merchant[0]} Visits',
+                    'description': f'{top_merchant[1]} visits in 30 days ({visits_per_day}x/day average) - Regular routine established'
+                })
+        
+        # Check for subscription patterns
+        subscription_merchants = ['Netflix', 'Hulu', 'Spotify', 'Amazon Prime', 'Apple Music']
+        active_subscriptions = [m for m in merchant_counts.keys() if any(sub in m for sub in subscription_merchants)]
+        if len(active_subscriptions) >= 3:
             frequency_insights.append({
-                'title': f'Frequent {top_merchant[0]} Visits',
-                'description': f'{top_merchant[1]} visits in 30 days - Almost daily routine'
+                'title': f'Multiple Active Subscriptions',
+                'description': f'{len(active_subscriptions)} streaming/music services ({", ".join(active_subscriptions[:3])}) - Paying monthly'
             })
         
         if len(large_orders) >= 2:
             avg_order = sum(o['amount'] for o in large_orders) / len(large_orders)
             frequency_insights.append({
-                'title': 'Weekly Grocery Shopping',
-                'description': f'Large ${avg_order:.0f} orders suggest weekly meal planning'
+                'title': 'Weekly Grocery Shopping Pattern',
+                'description': f'{len(large_orders)} large grocery orders (avg ${avg_order:.0f}) - Suggests weekly meal prep planning'
             })
         
-        # Preference insights
+        # Preference insights - Be SPECIFIC about lifestyle choices
         top_category = max(category_totals.items(), key=lambda x: x[1])
-        preference_insights.append({
-            'title': f'{top_category[0]}-Focused',
-            'description': f'${top_category[1]:.0f} spent indicates strong preference for {top_category[0].lower()}'
-        })
         
-        if 'Groceries' in category_totals and category_totals['Groceries'] > 400:
+        if top_category[0] == 'Transport':
+            rides_count = merchant_counts.get('Uber', 0) + merchant_counts.get('Lyft', 0)
+            preference_insights.append({
+                'title': 'No Car - Relies on Rideshare',
+                'description': f'${top_category[1]:.0f} spent on transport ({rides_count} rides) - Student without car, depends on Uber/Lyft for off-campus trips'
+            })
+        elif top_category[0] == 'Food':
+            preference_insights.append({
+                'title': 'Food Delivery Dependent',
+                'description': f'${top_category[1]:.0f} on food delivery - Prefers convenience over dining hall, likely busy schedule'
+            })
+        elif top_category[0] == 'Groceries':
             preference_insights.append({
                 'title': 'Cooking at Home',
-                'description': 'High grocery spending suggests cooking rather than dining halls'
+                'description': f'${top_category[1]:.0f} on groceries - Prefers cooking over dining halls, suggests off-campus housing or apartment'
+            })
+        elif top_category[0] == 'Entertainment':
+            preference_insights.append({
+                'title': 'Entertainment-Focused',
+                'description': f'${top_category[1]:.0f} on entertainment - Values streaming services and digital content'
+            })
+        
+        # Second preference insight
+        if 'Groceries' in category_totals and category_totals['Groceries'] > 400:
+            preference_insights.append({
+                'title': 'Meal Prep Over Takeout',
+                'description': f'${category_totals["Groceries"]:.0f} grocery spending vs takeout - Cost-conscious, prefers home cooking'
+            })
+        elif 'Transport' in category_totals and category_totals['Transport'] > 100:
+            preference_insights.append({
+                'title': 'Active Social Life',
+                'description': f'${category_totals["Transport"]:.0f} on rides - Frequently traveling to off-campus locations, social outings'
+            })
+        elif 'Entertainment' in category_totals and category_totals['Entertainment'] > 50:
+            subs_list = ', '.join(active_subscriptions[:3]) if active_subscriptions else 'multiple services'
+            preference_insights.append({
+                'title': 'Digital Media Consumer',
+                'description': f'${category_totals["Entertainment"]:.0f} on subscriptions ({subs_list}) - Values streaming entertainment'
+            })
+        
+        # Ensure we have at least 2 insights per category
+        if len(location_insights) < 2:
+            location_insights.append({
+                'title': 'Campus-Centric Lifestyle',
+                'description': 'Most spending within walking distance or delivery radius of Princeton campus'
+            })
+        if len(frequency_insights) < 2:
+            frequency_insights.append({
+                'title': 'Consistent Spending Pattern',
+                'description': f'{total_txns} transactions tracked - Regular purchasing habits established'
+            })
+        if len(preference_insights) < 2:
+            preference_insights.append({
+                'title': 'Convenience-Oriented',
+                'description': 'Spending patterns show preference for convenient, time-saving options'
             })
     
     # Build graph nodes and edges
@@ -210,7 +302,8 @@ CRITICAL REQUIREMENTS:
         'target': 'category_location',
         'type': 'smoothstep',
         'animated': True,
-        'style': {'stroke': '#6b4423', 'strokeWidth': 3}
+        'style': {'stroke': '#6b4423', 'strokeWidth': 3},
+        'markerEnd': {'type': 'arrowclosed', 'color': '#6b4423', 'width': 25, 'height': 25}
     })
     
     # Frequency category node - top branch
@@ -229,7 +322,8 @@ CRITICAL REQUIREMENTS:
         'target': 'category_frequency',
         'type': 'smoothstep',
         'animated': True,
-        'style': {'stroke': '#6b4423', 'strokeWidth': 3}
+        'style': {'stroke': '#6b4423', 'strokeWidth': 3},
+        'markerEnd': {'type': 'arrowclosed', 'color': '#6b4423', 'width': 25, 'height': 25}
     })
     
     # Preferences category node - right branch
@@ -248,7 +342,8 @@ CRITICAL REQUIREMENTS:
         'target': 'category_preferences',
         'type': 'smoothstep',
         'animated': True,
-        'style': {'stroke': '#6b4423', 'strokeWidth': 3}
+        'style': {'stroke': '#6b4423', 'strokeWidth': 3},
+        'markerEnd': {'type': 'arrowclosed', 'color': '#6b4423', 'width': 25, 'height': 25}
     })
     
     # Location insight nodes - spread horizontally below location category
@@ -271,7 +366,8 @@ CRITICAL REQUIREMENTS:
             'target': node_id,
             'type': 'smoothstep',
             'animated': False,
-            'style': {'stroke': '#8b6240', 'strokeWidth': 2}
+            'style': {'stroke': '#8b6240', 'strokeWidth': 2},
+            'markerEnd': {'type': 'arrowclosed', 'color': '#8b6240', 'width': 20, 'height': 20}
         })
     
     # Frequency insight nodes - spread horizontally below frequency category
@@ -294,7 +390,8 @@ CRITICAL REQUIREMENTS:
             'target': node_id,
             'type': 'smoothstep',
             'animated': False,
-            'style': {'stroke': '#8b6240', 'strokeWidth': 2}
+            'style': {'stroke': '#8b6240', 'strokeWidth': 2},
+            'markerEnd': {'type': 'arrowclosed', 'color': '#8b6240', 'width': 20, 'height': 20}
         })
     
     # Preference insight nodes - spread horizontally below preferences category
@@ -317,7 +414,8 @@ CRITICAL REQUIREMENTS:
             'target': node_id,
             'type': 'smoothstep',
             'animated': False,
-            'style': {'stroke': '#8b6240', 'strokeWidth': 2}
+            'style': {'stroke': '#8b6240', 'strokeWidth': 2},
+            'markerEnd': {'type': 'arrowclosed', 'color': '#8b6240', 'width': 20, 'height': 20}
         })
     
     # Combine all insights for legacy support

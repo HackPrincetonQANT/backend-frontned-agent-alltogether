@@ -1064,3 +1064,266 @@ INFO:     127.0.0.1:64782 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/tran
 INFO:     127.0.0.1:64787 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:64785 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
 INFO:     127.0.0.1:64784 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:64925 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:64942 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:64963 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762677418600, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': 'd02d59ea-03e0-40c0-b6f8-54b974bb9a90', 'task_id': 62248417, 'external_user_id': 'test_3_1762677353', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User test_3_1762677353 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762677425391, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'test_3_1762677353'}
+🔔 Knot event: NEW_TRANSACTIONS_AVAILABLE
+✅ Transaction webhook for Uber Eats (user: test_3_1762677353)
+🔄 Attempting to sync transactions from Knot API...
+🔵 Syncing transactions from https://production.knotapi.com/transactions/sync
+🔵 Body: {'merchant_id': 36, 'external_user_id': 'test_3_1762677353', 'limit': 50}
+🔵 Response status: 200
+✅ Got 3 transactions from Uber Eats
+📦 Received 3 transactions from Knot
+🔄 Transformed into 9 items
+✅ Saved 9 items to Snowflake from Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762677474802, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': 'de7c1803-ebcf-4d93-9bcd-761d2f8ef634', 'task_id': 62248422, 'external_user_id': 'test_3_1762677417', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User test_3_1762677417 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762677491668, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'test_3_1762677417'}
+🔔 Knot event: NEW_TRANSACTIONS_AVAILABLE
+✅ Transaction webhook for Uber Eats (user: test_3_1762677417)
+🔄 Attempting to sync transactions from Knot API...
+🔵 Syncing transactions from https://production.knotapi.com/transactions/sync
+🔵 Body: {'merchant_id': 36, 'external_user_id': 'test_3_1762677417', 'limit': 50}
+🔵 Response status: 200
+✅ Got 3 transactions from Uber Eats
+📦 Received 3 transactions from Knot
+🔄 Transformed into 9 items
+✅ Saved 9 items to Snowflake from Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65143 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65166 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65183 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762677612026, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': '1d07ead7-2937-48b9-8b51-0464c2518627', 'task_id': 62248435, 'external_user_id': 'mock-user-id-1762677324144', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User mock-user-id-1762677324144 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [67859]
+INFO:     Started server process [79548]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79548]
+INFO:     Started server process [79575]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79575]
+INFO:     Started server process [79610]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79610]
+INFO:     Started server process [79643]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79643]
+INFO:     Started server process [79670]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762677663171, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': '1d07ead7-2937-48b9-8b51-0464c2518627', 'task_id': 62248440, 'external_user_id': 'mock-user-id-1762677324144', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User mock-user-id-1762677324144 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79670]
+Process SpawnProcess-45:
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    ~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+  File "/opt/anaconda3/envs/princeton/lib/python3.14/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1398, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 762, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/Users/columbus/Desktop/hackPrinceton/backend/database/api/main.py", line 17, in <module>
+    from .piggy_graph import generate_piggy_graph
+  File "/Users/columbus/Desktop/hackPrinceton/backend/database/api/piggy_graph.py", line 319
+    })
+    ^
+SyntaxError: unmatched '}'
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Started server process [79759]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65237 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65255 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65282 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65283 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65282 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65283 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65282 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65283 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65282 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65283 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65299 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65300 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65301 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65302 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65299 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65301 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65282 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65283 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65302 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65301 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65299 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+INFO:     127.0.0.1:65300 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65283 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:65282 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762677839947, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': 'b3f258d7-4354-4560-acae-9fa0b895b886', 'task_id': 62248453, 'external_user_id': 'test_3_1762677766', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User test_3_1762677766 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762677846663, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'test_3_1762677766'}
+🔔 Knot event: NEW_TRANSACTIONS_AVAILABLE
+✅ Transaction webhook for Uber Eats (user: test_3_1762677766)
+🔄 Attempting to sync transactions from Knot API...
+🔵 Syncing transactions from https://production.knotapi.com/transactions/sync
+🔵 Body: {'merchant_id': 36, 'external_user_id': 'test_3_1762677766', 'limit': 50}
+🔵 Response status: 200
+✅ Got 3 transactions from Uber Eats
+📦 Received 3 transactions from Knot
+🔄 Transformed into 9 items
+✅ Saved 9 items to Snowflake from Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65475 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79759]
+INFO:     Started server process [82667]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:65518 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49153 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49169 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49188 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49213 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49212 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49212 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49231 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49232 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49213 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49230 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49229 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49232 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49212 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49231 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(2093) for column NODES
+INFO:     127.0.0.1:49213 - "GET /api/piggy-graph?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/piggy_graph.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [82667]
+INFO:     Started server process [84013]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

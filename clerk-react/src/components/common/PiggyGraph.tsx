@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import ReactFlow, {
   Background,
   Controls,
@@ -49,11 +50,12 @@ const nodeTypes = {
 };
 
 export const PiggyGraph = () => {
+  const { user } = useUser();
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [loading, setLoading] = useState(true);
 
-  const userId = 'u_demo_min';
+  const userId = user?.id || 'user_35EFmFe77RGaAFSAQLfPtEin7XW';
 
   useEffect(() => {
     const fetchGraphData = async () => {
@@ -85,32 +87,29 @@ export const PiggyGraph = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fdfbf7] p-6">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl font-rique font-bold text-[#6b4423] mb-8">Piggy Graph</h1>
-          <div className="flex items-center justify-center py-20">
-            <div className="w-16 h-16 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
-          </div>
+      <div className="bg-[#f8f3e9] rounded-3xl p-8 border-4 border-[#6b4423]">
+        <h2 className="text-3xl font-rique font-bold text-[#6b4423] mb-4">Piggy Graph</h2>
+        <div className="flex items-center justify-center py-20">
+          <div className="w-16 h-16 border-4 border-[#6b4423] border-t-transparent rounded-full animate-spin" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7] p-6">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-5xl font-rique font-bold text-[#6b4423] mb-4">
-          Piggy Graph
-        </h1>
-        <p className="text-lg font-lexend text-[#8b6240] mb-6">
-          Your spending habits, preferences, and AI-powered insights visualized
-        </p>
+    <div className="bg-[#f8f3e9] rounded-3xl p-8 border-4 border-[#6b4423]">
+      <h2 className="text-3xl font-rique font-bold text-[#6b4423] mb-4">
+        Piggy Graph
+      </h2>
+      <p className="text-lg font-lexend text-[#8b6240] mb-6">
+        Your spending habits, preferences, and AI-powered insights visualized
+      </p>
 
-        {/* Graph Visualization */}
-        <div 
-          className="bg-white rounded-3xl border-4 border-[#6b4423] shadow-xl overflow-hidden"
-          style={{ height: '950px' }}
-        >
+      {/* Graph Visualization */}
+      <div 
+        className="bg-white rounded-2xl border-4 border-[#6b4423] shadow-xl overflow-hidden"
+        style={{ height: '800px', width: '100%' }}
+      >
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -118,27 +117,34 @@ export const PiggyGraph = () => {
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.15 }}
-            minZoom={0.4}
-            maxZoom={1.5}
+            fitViewOptions={{ 
+              padding: 0.2,
+              includeHiddenNodes: false,
+              minZoom: 0.5,
+              maxZoom: 1.2
+            }}
+            minZoom={0.3}
+            maxZoom={2}
+            defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
             defaultEdgeOptions={{
               type: 'smoothstep',
               animated: true,
-              style: { stroke: '#6b4423', strokeWidth: 3 },
               markerEnd: {
                 type: MarkerType.ArrowClosed,
                 color: '#6b4423',
-                width: 20,
-                height: 20,
+                width: 25,
+                height: 25,
               },
             }}
-            attributionPosition="bottom-left"
+            proOptions={{ hideAttribution: true }}
+            nodesDraggable={true}
+            nodesConnectable={false}
+            elementsSelectable={true}
           >
-            <Background color="#6b4423" gap={16} />
+            <Background color="#6b4423" gap={16} size={1} />
             <Controls />
           </ReactFlow>
         </div>
-      </div>
     </div>
   );
 };
