@@ -2,7 +2,7 @@
 
 from typing import List, Dict, Any
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -37,6 +37,80 @@ app.add_middleware(
 # ----------------------------------------------------------------------
 # Basic health / core endpoints
 # ----------------------------------------------------------------------
+
+@app.post("/")
+async def root_webhook(request: Request):
+    """
+    Root webhook handler - Knot webhooks
+    Now attempts to sync real transaction data from Knot API
+    """
+    try:
+        body = await request.json()
+        print(f"📬 Received Knot webhook: {body}")
+        
+        # Check if it's a Knot webhook (they use 'event' not 'event_type')
+        if "event" in body:
+            event_type = body.get("event")
+            print(f"🔔 Knot event: {event_type}")
+            
+            if event_type == "NEW_TRANSACTIONS_AVAILABLE":
+                external_user_id = body.get("external_user_id")
+                merchant_data = body.get("merchant", {})
+                merchant_name = merchant_data.get("name", "Unknown")
+                merchant_id = merchant_data.get("id")
+                
+                print(f"✅ Transaction webhook for {merchant_name} (user: {external_user_id})")
+                print(f"🔄 Attempting to sync transactions from Knot API...")
+                
+                # Try to fetch real transactions from Knot
+                from .knot_client import KnotAPIClient
+                from .knot_sync import save_knot_transactions_to_snowflake, transform_knot_transaction
+                
+                knot_client = KnotAPIClient()
+                result = knot_client.get_transactions_by_merchant(external_user_id, merchant_id, limit=50)
+                
+                transactions = result.get("transactions", [])
+                print(f"📦 Received {len(transactions)} transactions from Knot")
+                
+                if transactions:
+                    # Transform and save to Snowflake
+                    all_items = []
+                    for txn in transactions:
+                        items = transform_knot_transaction(txn, external_user_id)
+                        all_items.extend(items)
+                    
+                    print(f"🔄 Transformed into {len(all_items)} items")
+                    
+                    if all_items:
+                        saved_count = save_knot_transactions_to_snowflake(all_items)
+                        print(f"✅ Saved {saved_count} items to Snowflake from {merchant_name}")
+                        
+                        return {
+                            "status": "success",
+                            "transactions_received": len(transactions),
+                            "items_saved": saved_count,
+                            "merchant": merchant_name
+                        }
+                
+                print(f"ℹ️  No transactions available (may need API access from Knot)")
+                return {
+                    "status": "no_transactions",
+                    "message": "Webhook received but no transactions available"
+                }
+
+            
+            elif event_type == "AUTHENTICATED":
+                external_user_id = body.get("external_user_id")
+                merchant_name = body.get("merchant", {}).get("name", "Unknown")
+                print(f"✅ User {external_user_id} authenticated to {merchant_name}")
+                return {"status": "authenticated"}
+        
+        return {"status": "received", "event": body.get("event_type", "unknown")}
+    except Exception as e:
+        print(f"❌ Error processing root webhook: {e}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse({"error": str(e)}, status_code=500)
 
 
 @app.get("/health")
@@ -658,9 +732,10 @@ def get_knot_merchants():
     """
     Get list of available merchants from Knot API for TransactionLink
     """
-    from .knot_client import knot_client
+    from .knot_client import KnotAPIClient
     
     try:
+        knot_client = KnotAPIClient()
         merchants = knot_client.list_merchants()
         return {"merchants": merchants, "count": len(merchants)}
     except Exception as e:
@@ -671,22 +746,36 @@ def get_knot_merchants():
 @app.post("/api/knot/session")
 def create_knot_session(
     user_id: str = Query(..., description="Internal user ID"),
-    merchant_id: int = Query(None, description="Optional merchant ID to pre-select")
+    merchant_id: int = Query(None, description="Optional merchant ID to pre-select"),
+    mock: bool = Query(False, description="Use mock mode for testing")
 ):
     """
     Create a Knot session for user to link their merchant account
     """
-    from .knot_client import knot_client
+    from .knot_client import KnotAPIClient
+    import uuid
+    
+    # Mock mode for testing when Knot API is unavailable
+    if mock:
+        return {
+            "session_id": f"mock_session_{uuid.uuid4().hex[:16]}",
+            "user_id": user_id,
+            "merchant_id": merchant_id,
+            "mock": True
+        }
     
     try:
+        knot_client = KnotAPIClient()
         session = knot_client.create_session(user_id, merchant_id)
         if session:
             return session
         else:
-            raise HTTPException(status_code=500, detail="Failed to create session")
+            raise HTTPException(status_code=500, detail="Failed to create session - Knot API may be unavailable. Check the API base URL with Knot support.")
     except Exception as e:
         print(f"Error creating Knot session: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to create session: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Knot API Error: {str(e)}")
 
 
 @app.get("/api/knot/accounts")
@@ -694,9 +783,10 @@ def get_knot_accounts(user_id: str = Query(..., description="Internal user ID"))
     """
     Get all linked merchant accounts for a user from Knot
     """
-    from .knot_client import knot_client
+    from .knot_client import KnotAPIClient
     
     try:
+        knot_client = KnotAPIClient()
         accounts = knot_client.get_merchant_accounts(user_id)
         return {"accounts": accounts, "count": len(accounts)}
     except Exception as e:
@@ -707,22 +797,41 @@ def get_knot_accounts(user_id: str = Query(..., description="Internal user ID"))
 @app.post("/api/knot/sync")
 def sync_knot_transactions(
     user_id: str = Query(..., description="Internal user ID for Snowflake"),
-    knot_user_id: str = Query(None, description="Knot user ID if different")
+    knot_user_id: str = Query(None, description="Knot user ID if different"),
+    clear_existing: bool = Query(True, description="Clear existing transactions before syncing")
 ):
     """
     Sync all transactions from Knot API to Snowflake for a user
     This will:
-    1. Fetch all transactions from user's connected Knot merchant accounts
-    2. Transform them into our Snowflake format
-    3. Save to PURCHASE_ITEMS_TEST table
+    1. (Optional) Clear existing transactions for this user only
+    2. Fetch all transactions from user's connected Knot merchant accounts
+    3. Transform them into our Snowflake format
+    4. Save to PURCHASE_ITEMS_TEST table
+    
+    SAFETY: Only clears data for the specified user_id, other users' data is untouched
     """
     from .knot_sync import sync_user_transactions_from_knot
+    from .db import execute
     
     try:
+        # SAFETY CHECK: Only delete for the specific user
+        if clear_existing:
+            print(f"🗑️  Clearing existing transactions for user: {user_id}")
+            delete_sql = """
+                DELETE FROM SNOWFLAKE_LEARNING_DB.BALANCEIQ_CORE.PURCHASE_ITEMS_TEST 
+                WHERE USER_ID = %s
+            """
+            execute(delete_sql, (user_id,))
+            print(f"✅ Cleared transactions for user: {user_id}")
+        
+        # Sync from Knot
         result = sync_user_transactions_from_knot(user_id, knot_user_id)
+        result["cleared_existing"] = clear_existing
         return result
     except Exception as e:
-        print(f"Error syncing Knot transactions: {e}")
+        print(f"❌ Error syncing Knot transactions: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to sync transactions: {str(e)}")
 
 
@@ -731,9 +840,10 @@ def get_sync_status(user_id: str = Query(..., description="Internal user ID")):
     """
     Get sync status for a user - shows connected accounts and last sync info
     """
-    from .knot_client import knot_client
+    from .knot_client import KnotAPIClient
     
     try:
+        knot_client = KnotAPIClient()
         accounts = knot_client.get_merchant_accounts(user_id)
         
         connected_accounts = [
@@ -755,3 +865,155 @@ def get_sync_status(user_id: str = Query(..., description="Internal user ID")):
     except Exception as e:
         print(f"Error fetching sync status: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch sync status: {str(e)}")
+
+
+# Knot Webhook Endpoints
+@app.post("/api/knot/webhooks/new-transactions")
+async def knot_webhook_new_transactions(request: Request):
+    """
+    Webhook endpoint to receive NEW_TRANSACTIONS_AVAILABLE events from Knot
+    
+    Expected payload:
+    {
+        "event": "NEW_TRANSACTIONS_AVAILABLE",
+        "external_user_id": "user_id",
+        "merchant": {"id": 19, "name": "DoorDash"},
+        "timestamp": 1710864923198
+    }
+    """
+    from .knot_sync import sync_user_transactions_from_knot
+    
+    try:
+        payload = await request.json()
+        print(f"📬 Received Knot webhook: {payload}")
+        
+        event_type = payload.get("event")
+        if event_type != "NEW_TRANSACTIONS_AVAILABLE":
+            return {"status": "ignored", "reason": f"Event type {event_type} not handled by this endpoint"}
+        
+        user_id = payload.get("external_user_id")
+        merchant = payload.get("merchant", {})
+        
+        if not user_id:
+            raise HTTPException(status_code=400, detail="Missing external_user_id")
+        
+        print(f"🔄 Auto-syncing transactions for user {user_id} from {merchant.get('name')}")
+        
+        # Trigger sync in background
+        result = sync_user_transactions_from_knot(user_id, user_id)
+        
+        return {
+            "status": "success",
+            "message": f"Synced {result['items_saved']} items from {merchant.get('name')}",
+            "result": result
+        }
+    except Exception as e:
+        print(f"❌ Error processing webhook: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/knot/sync-by-merchant")
+async def sync_by_merchant(user_id: str = Query(...), merchant_id: int = Query(...)):
+    """
+    Manually sync transactions for a specific merchant using merchant_id
+    This bypasses the /account/list endpoint
+    """
+    try:
+        from .knot_client import KnotAPIClient
+        from .knot_sync import save_knot_transactions_to_snowflake, transform_knot_transactions
+        from .db import execute
+        
+        print(f"🔄 Syncing transactions for user {user_id}, merchant {merchant_id}")
+        
+        # Clear existing first
+        delete_sql = "DELETE FROM SNOWFLAKE_LEARNING_DB.BALANCEIQ_CORE.PURCHASE_ITEMS_TEST WHERE USER_ID = %s"
+        execute(delete_sql, (user_id,))
+        print(f"✅ Cleared existing transactions")
+        
+        # Fetch transactions using merchant_id
+        knot_client = KnotAPIClient()
+        transactions = knot_client.get_transactions_by_merchant(user_id, merchant_id)
+        
+        print(f"📦 Retrieved {len(transactions)} transactions from Knot")
+        
+        if transactions:
+            items = transform_knot_transactions(transactions, user_id)
+            print(f"🔄 Transformed into {len(items)} items")
+            
+            saved_count = save_knot_transactions_to_snowflake(items)
+            print(f"✅ Synced {saved_count} items to Snowflake")
+            
+            return {
+                "status": "success",
+                "transactions": len(transactions),
+                "items_saved": saved_count
+            }
+        else:
+            return {"status": "no_transactions", "message": "No transactions available yet"}
+            
+    except Exception as e:
+        print(f"❌ Error syncing by merchant: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/knot/webhooks/authenticated")
+async def knot_webhook_authenticated(request: Request):
+    """
+    Webhook endpoint to receive AUTHENTICATED events from Knot
+    Notifies when a user successfully links a merchant account
+    """
+    try:
+        payload = await request.json()
+        print(f"📬 Received AUTHENTICATED webhook: {payload}")
+        
+        user_id = payload.get("external_user_id")
+        merchant = payload.get("merchant", {})
+        
+        print(f"✅ User {user_id} authenticated to {merchant.get('name')}")
+        
+        return {"status": "received", "user_id": user_id, "merchant": merchant}
+    except Exception as e:
+        print(f"❌ Error processing authenticated webhook: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/knot/test-sync")
+def test_manual_sync(
+    user_id: str = Query(..., description="User ID to sync"),
+    clear_first: bool = Query(True, description="Clear existing data first")
+):
+    """
+    Manual endpoint to test transaction syncing without waiting for webhooks
+    Use this for development/testing
+    """
+    from .knot_sync import sync_user_transactions_from_knot
+    from .db import execute
+    
+    try:
+        if clear_first:
+            print(f"🗑️  Clearing existing transactions for user: {user_id}")
+            delete_sql = """
+                DELETE FROM SNOWFLAKE_LEARNING_DB.BALANCEIQ_CORE.PURCHASE_ITEMS_TEST 
+                WHERE USER_ID = %s
+            """
+            execute(delete_sql, (user_id,))
+            print(f"✅ Cleared transactions for user: {user_id}")
+        
+        print(f"🔄 Manually syncing transactions for user: {user_id}")
+        result = sync_user_transactions_from_knot(user_id, user_id)
+        
+        return {
+            "status": "success",
+            "cleared_first": clear_first,
+            **result
+        }
+    except Exception as e:
+        print(f"❌ Error in manual sync: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+

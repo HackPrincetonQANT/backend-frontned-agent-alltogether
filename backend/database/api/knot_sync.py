@@ -5,14 +5,12 @@ Syncs transactions from Knot API to Snowflake database
 import uuid
 from datetime import datetime
 from typing import List, Dict, Any
-from .knot_client import knot_client
-from .db import get_conn, execute_sql
-from .do_llm import categorize_item
+from .db import get_conn, execute
 
 
 def categorize_transaction_item(item_name: str, merchant_name: str = "") -> str:
     """
-    Categorize a transaction item using the LLM categorization
+    Categorize a transaction item based on merchant and item name
     
     Args:
         item_name: Name of the item
@@ -21,33 +19,31 @@ def categorize_transaction_item(item_name: str, merchant_name: str = "") -> str:
     Returns:
         Category string
     """
-    try:
-        category = categorize_item(item_name)
-        return category
-    except Exception as e:
-        print(f"Error categorizing {item_name}: {e}")
-        # Fallback to merchant-based categorization
-        merchant_lower = merchant_name.lower()
-        if any(x in merchant_lower for x in ["starbucks", "coffee", "dunkin"]):
-            return "Coffee"
-        elif any(x in merchant_lower for x in ["target", "walmart", "amazon", "trader"]):
-            return "Groceries"
-        elif any(x in merchant_lower for x in ["doordash", "uber eats", "grubhub", "chipotle"]):
-            return "Food"
-        elif any(x in merchant_lower for x in ["uber", "lyft", "zipcar"]):
-            return "Transport"
-        elif any(x in merchant_lower for x in ["netflix", "spotify", "hulu", "disney"]):
-            return "Entertainment"
-        else:
-            return "Shopping"
+    # Merchant-based categorization
+    item_lower = item_name.lower()
+    merchant_lower = merchant_name.lower()
+    
+    if any(x in merchant_lower or x in item_lower for x in ["starbucks", "coffee", "dunkin", "cafe"]):
+        return "Coffee"
+    elif any(x in merchant_lower or x in item_lower for x in ["target", "walmart", "amazon", "trader", "grocery", "whole foods"]):
+        return "Groceries"
+    elif any(x in merchant_lower or x in item_lower for x in ["doordash", "uber eats", "grubhub", "chipotle", "restaurant", "food", "pizza"]):
+        return "Food"
+    elif any(x in merchant_lower or x in item_lower for x in ["uber", "lyft", "zipcar", "transport", "taxi"]):
+        return "Transport"
+    elif any(x in merchant_lower or x in item_lower for x in ["netflix", "spotify", "hulu", "disney", "entertainment", "music", "movie"]):
+        return "Entertainment"
+    else:
+        return "Shopping"
 
 
 def transform_knot_transaction(transaction: Dict[str, Any], user_id: str) -> List[Dict[str, Any]]:
     """
     Transform a Knot transaction into our Snowflake format
+    Works with the new Knot API response structure
     
     Args:
-        transaction: Knot transaction object
+        transaction: Knot transaction object with products array
         user_id: Our internal user ID
         
     Returns:
@@ -57,47 +53,55 @@ def transform_knot_transaction(transaction: Dict[str, Any], user_id: str) -> Lis
     
     # Extract transaction data
     transaction_id = transaction.get("id", "")
-    merchant_name = transaction.get("merchant", {}).get("name", "")
     transaction_date = transaction.get("datetime", datetime.now().isoformat())
     
-    # Process each item in the transaction
-    line_items = transaction.get("lineItems", [])
+    # Get merchant name from the transaction-level merchant field
+    # Note: This may not be in the transaction itself, might need to pass it separately
+    merchant_name = "Uber Eats"  # Default, should be passed in from webhook/merchant context
     
-    for line_item in line_items:
-        item_name = line_item.get("name", "Unknown Item")
+    # Process each product in the transaction
+    products = transaction.get("products", [])
+    
+    for product in products:
+        item_name = product.get("name", "Unknown Item")
+        quantity = product.get("quantity", 1)
         
-        # Get price - handle different price formats
-        price_data = line_item.get("price", {})
+        # Get price - use total or unit_price
+        price_data = product.get("price", {})
         if isinstance(price_data, dict):
-            price = float(price_data.get("amount", 0)) / 100  # Convert cents to dollars
+            # Try total first, then unit_price
+            price_str = price_data.get("total") or price_data.get("unit_price") or "0"
+            price = float(price_str) if price_str else 0.0
         else:
             price = float(price_data) if price_data else 0.0
         
         # Categorize the item
         category = categorize_transaction_item(item_name, merchant_name)
         
-        # Create item record
-        item_record = {
-            "item_id": str(uuid.uuid4()),
-            "user_id": user_id,
-            "item_name": item_name,
-            "merchant": merchant_name,
-            "price": price,
-            "ts": transaction_date,
-            "category": category,
-            "knot_transaction_id": transaction_id,
-            "knot_line_item_id": line_item.get("id", "")
-        }
-        
-        items.append(item_record)
+        # Create item record (one per quantity for better tracking)
+        for _ in range(quantity):
+            item_record = {
+                "item_id": str(uuid.uuid4()),
+                "user_id": user_id,
+                "item_name": item_name,
+                "merchant": merchant_name,
+                "price": price / quantity if quantity > 1 else price,  # Divide by quantity for per-item price
+                "ts": transaction_date,
+                "category": category,
+                "knot_transaction_id": transaction_id,
+                "knot_product_id": product.get("external_id", "")
+            }
+            
+            items.append(item_record)
     
-    # If no line items, create one record for the total transaction
+    # If no products, create one record for the total transaction
     if not items:
-        total_amount = transaction.get("total", {})
-        if isinstance(total_amount, dict):
-            amount = float(total_amount.get("amount", 0)) / 100
+        price_data = transaction.get("price", {})
+        if isinstance(price_data, dict):
+            total_str = price_data.get("total", "0")
+            amount = float(total_str) if total_str else 0.0
         else:
-            amount = float(total_amount) if total_amount else 0.0
+            amount = float(price_data) if price_data else 0.0
         
         category = categorize_transaction_item(merchant_name, merchant_name)
         
@@ -110,7 +114,7 @@ def transform_knot_transaction(transaction: Dict[str, Any], user_id: str) -> Lis
             "ts": transaction_date,
             "category": category,
             "knot_transaction_id": transaction_id,
-            "knot_line_item_id": ""
+            "knot_product_id": ""
         })
     
     return items
@@ -139,7 +143,7 @@ def save_knot_transactions_to_snowflake(items: List[Dict[str, Any]]) -> int:
     with get_conn() as conn:
         for item in items:
             try:
-                execute_sql(
+                execute(
                     insert_sql,
                     (
                         item["item_id"],
@@ -149,8 +153,7 @@ def save_knot_transactions_to_snowflake(items: List[Dict[str, Any]]) -> int:
                         item["price"],
                         item["ts"],
                         item["category"]
-                    ),
-                    conn=conn
+                    )
                 )
                 saved_count += 1
             except Exception as e:
@@ -160,26 +163,29 @@ def save_knot_transactions_to_snowflake(items: List[Dict[str, Any]]) -> int:
     return saved_count
 
 
-def sync_user_transactions_from_knot(user_id: str, knot_user_id: str = None) -> Dict[str, Any]:
+def sync_user_transactions_from_knot(user_id: str, merchant_id: int) -> Dict[str, Any]:
     """
-    Main function to sync all transactions for a user from Knot to Snowflake
+    Main function to sync transactions for a user from Knot to Snowflake
     
     Args:
-        user_id: Our internal user ID (for Snowflake)
-        knot_user_id: Knot user ID (if different from internal user_id)
+        user_id: Our internal user ID (for Snowflake and Knot external_user_id)
+        merchant_id: Knot merchant ID
         
     Returns:
         Summary of sync operation
     """
-    # Use same user_id for Knot if not provided
-    if not knot_user_id:
-        knot_user_id = user_id
+    from .knot_client import KnotAPIClient
     
-    print(f"Starting Knot sync for user: {user_id}")
+    print(f"Starting Knot sync for user: {user_id}, merchant: {merchant_id}")
     
-    # Get all transactions from Knot
-    knot_transactions = knot_client.sync_all_user_transactions(knot_user_id)
-    print(f"Retrieved {len(knot_transactions)} transactions from Knot")
+    # Get transactions from Knot
+    client = KnotAPIClient()
+    result = client.get_transactions_by_merchant(user_id, merchant_id, limit=100)
+    
+    knot_transactions = result.get("transactions", [])
+    merchant_name = result.get("merchant", {}).get("name", f"Merchant {merchant_id}")
+    
+    print(f"Retrieved {len(knot_transactions)} transactions from {merchant_name}")
     
     # Transform all transactions
     all_items = []
@@ -194,6 +200,8 @@ def sync_user_transactions_from_knot(user_id: str, knot_user_id: str = None) -> 
     
     return {
         "user_id": user_id,
+        "merchant_id": merchant_id,
+        "merchant_name": merchant_name,
         "knot_transactions_count": len(knot_transactions),
         "items_transformed": len(all_items),
         "items_saved": saved_count,

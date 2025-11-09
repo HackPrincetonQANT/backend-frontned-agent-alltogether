@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import { fetchUserTransactions, fetchPredictions } from '../../services';
 import type { Transaction, Prediction } from '../../types';
 
 export const Activity = () => {
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState<'recently' | 'connections'>('recently');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // TODO: Replace with actual user ID from Clerk authentication
-  const userId = 'u_demo_min';
+  // Get user ID from Clerk
+  const userId = user?.id || 'user_35EFmFe77RGaAFSAQLfPtEin7XW'; // Fallback to demo user
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +22,7 @@ export const Activity = () => {
         
         // Fetch transactions and predictions in parallel
         const [transactionsData, predictionsData] = await Promise.all([
-          fetchUserTransactions(userId, 20),
+          fetchUserTransactions(userId, 100),
           fetchPredictions(userId, 5)
         ]);
         
@@ -55,6 +57,7 @@ export const Activity = () => {
       'Groceries': '🛒',
       'Entertainment': '🎬',
       'Shopping': '🛍️',
+      'Transport': '🚗',
       'Transportation': '🚗',
       'Dining': '🍽️',
       'Other': '💰'

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import { fetchUserTransactions, fetchSmartTips, fetchBetterDeals, fetchPredictions } from '../../services';
 import type { Transaction, BetterDeal, Prediction } from '../../types';
 import { PiggyGraph } from './PiggyGraph';
@@ -14,6 +15,7 @@ interface SmartTip {
 }
 
 export const Insights = () => {
+  const { user } = useUser();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [smartTips, setSmartTips] = useState<SmartTip[]>([]);
   const [betterDeals, setBetterDeals] = useState<BetterDeal[]>([]);
@@ -21,8 +23,8 @@ export const Insights = () => {
   const [loading, setLoading] = useState(true);
   const [pingingPrediction, setPingingPrediction] = useState<number | null>(null);
   
-  // TODO: Replace with actual user ID from Clerk
-  const userId = 'u_demo_min';
+  // Get user ID from Clerk
+  const userId = user?.id || 'user_35EFmFe77RGaAFSAQLfPtEin7XW'; // Fallback to demo user
 
   const handlePingPrediction = async (prediction: Prediction, index: number) => {
     try {

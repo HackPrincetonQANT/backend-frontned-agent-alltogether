@@ -1,45 +1,1066 @@
 INFO:     Will watch for changes in these directories: ['/Users/columbus/Desktop/hackPrinceton/backend']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [99498] using StatReload
-INFO:     Started server process [99501]
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [23834] using StatReload
+INFO:     Started server process [23836]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:59202 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59203 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59218 - "OPTIONS /api/knot/session HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59202 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59203 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59248 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59233 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59232 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59248 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59233 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59232 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59248 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59233 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:59260 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
-Error creating session: 404 Client Error: Not Found for url: https://api.knotapi.com/v1/sessions
-Error creating Knot session: 500: Failed to create session
-INFO:     127.0.0.1:59268 - "POST /api/knot/session?user_id=test_user&merchant_id=44 HTTP/1.1" 500 Internal Server Error
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"29fa43cc-c79a-43fb-a4ac-55ff38d9b2cd"}
+INFO:     127.0.0.1:60120 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60109 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60108 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_sync.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [23836]
+INFO:     Started server process [25611]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60165 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60166 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60166 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60165 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60195 - "OPTIONS /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"ed1f2fca-43ac-409d-a0c4-a29723e9362c"}
+INFO:     127.0.0.1:60195 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'AUTHENTICATED', 'timestamp': 1762670815127, 'merchant': {'id': 19, 'name': 'DoorDash'}, 'session_id': 'ed1f2fca-43ac-409d-a0c4-a29723e9362c', 'task_id': 62230149, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'data': {'card_id': None, 'send_card': False}}
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [25611]
+INFO:     Started server process [26017]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"11efe586-cbea-4a65-afe7-661bd8c5a2ba"}
+INFO:     127.0.0.1:60233 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60221 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60222 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762670888724, 'merchant': {'id': 44, 'name': 'Amazon'}, 'external_user_id': '11281708-f64d-4a74-8691-65a4d3b71d8b'}
+🔔 Knot event type: NEW_TRANSACTIONS_AVAILABLE
+👤 User: 11281708-f64d-4a74-8691-65a4d3b71d8b, 🏪 Merchant: Amazon
+Starting Knot sync for user: 11281708-f64d-4a74-8691-65a4d3b71d8b
+Error fetching merchant accounts: 404 Client Error: Not Found for url: https://production.knotapi.com/account/list?external_user_id=Amazon
+Response: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Not Found</title>
+
+        <style>
+            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}code{font-family:monospace,monospace;font-size:1em}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}code{font-family:Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-gray-400{--border-opacity:1;border-color:#cbd5e0;border-color:rgba(203,213,224,var(--border-opacity))}.border-t{border-top-width:1px}.border-r{border-right-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-xl{max-width:36rem}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.uppercase{text-transform:uppercase}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.tracking-wider{letter-spacing:.05em}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@-webkit-keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@-webkit-keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@-webkit-keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@-webkit-keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}}
+        </style>
+
+        <style>
+            body {
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+            <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
+                    <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
+                        404                    </div>
+
+                    <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
+                        Not Found                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+Retrieved 0 transactions from Knot
+Transformed into 0 items
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'AUTHENTICATED', 'timestamp': 1762670914754, 'merchant': {'id': 19, 'name': 'DoorDash'}, 'session_id': '11efe586-cbea-4a65-afe7-661bd8c5a2ba', 'task_id': 62230158, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event type: AUTHENTICATED
+✅ User user_35EFmFe77RGaAFSAQLfPtEin7XW authenticated to DoorDash
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+🗑️  Clearing existing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+✅ Cleared transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔄 Manually syncing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Starting Knot sync for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Error fetching merchant accounts: 404 Client Error: Not Found for url: https://production.knotapi.com/account/list?external_user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW
+Response: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Not Found</title>
+
+        <style>
+            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}code{font-family:monospace,monospace;font-size:1em}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}code{font-family:Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-gray-400{--border-opacity:1;border-color:#cbd5e0;border-color:rgba(203,213,224,var(--border-opacity))}.border-t{border-top-width:1px}.border-r{border-right-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-xl{max-width:36rem}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.uppercase{text-transform:uppercase}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.tracking-wider{letter-spacing:.05em}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@-webkit-keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@-webkit-keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@-webkit-keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@-webkit-keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}}
+        </style>
+
+        <style>
+            body {
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+            <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
+                    <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
+                        404                    </div>
+
+                    <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
+                        Not Found                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+Retrieved 0 transactions from Knot
+Transformed into 0 items
+INFO:     127.0.0.1:60250 - "POST /api/knot/test-sync?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26017]
+INFO:     Started server process [26705]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🗑️  Clearing existing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+✅ Cleared transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔄 Manually syncing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Starting Knot sync for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Error fetching merchant accounts: 404 Client Error: Not Found for url: https://production.knotapi.com/account/list?external_user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW
+Response: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Not Found</title>
+
+        <style>
+            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}code{font-family:monospace,monospace;font-size:1em}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}code{font-family:Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-gray-400{--border-opacity:1;border-color:#cbd5e0;border-color:rgba(203,213,224,var(--border-opacity))}.border-t{border-top-width:1px}.border-r{border-right-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-xl{max-width:36rem}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.uppercase{text-transform:uppercase}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.tracking-wider{letter-spacing:.05em}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@-webkit-keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@-webkit-keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@-webkit-keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@-webkit-keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}}
+        </style>
+
+        <style>
+            body {
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+            <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
+                    <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
+                        404                    </div>
+
+                    <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
+                        Not Found                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+Retrieved 0 transactions from Knot
+Transformed into 0 items
+INFO:     127.0.0.1:60278 - "POST /api/knot/test-sync?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"11f1c0cf-0c11-465b-8c75-7d8c973f74cd"}
+INFO:     127.0.0.1:60318 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26705]
+INFO:     Started server process [28540]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
 WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [99501]
-INFO:     Started server process [1079]
+INFO:     Finished server process [28540]
+INFO:     Started server process [28765]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:59295 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59294 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [28765]
+INFO:     Started server process [28827]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60367 - "OPTIONS /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"d3f29106-0e00-48b4-a707-211d33af8dc0"}
+INFO:     127.0.0.1:60367 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'AUTHENTICATED', 'timestamp': 1762671541014, 'merchant': {'id': 19, 'name': 'DoorDash'}, 'session_id': 'd3f29106-0e00-48b4-a707-211d33af8dc0', 'task_id': 62230233, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event type: AUTHENTICATED
+✅ User user_35EFmFe77RGaAFSAQLfPtEin7XW authenticated to DoorDash
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+🗑️  Clearing existing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+✅ Cleared transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔄 Manually syncing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Starting Knot sync for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Error fetching merchant accounts: 404 Client Error: Not Found for url: https://production.knotapi.com/account/list?external_user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW
+Response: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Not Found</title>
+
+        <style>
+            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}code{font-family:monospace,monospace;font-size:1em}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}code{font-family:Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-gray-400{--border-opacity:1;border-color:#cbd5e0;border-color:rgba(203,213,224,var(--border-opacity))}.border-t{border-top-width:1px}.border-r{border-right-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-xl{max-width:36rem}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.uppercase{text-transform:uppercase}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.tracking-wider{letter-spacing:.05em}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@-webkit-keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@-webkit-keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@keyframes ping{0%{transform:scale(1);opacity:1}75%,to{transform:scale(2);opacity:0}}@-webkit-keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}@-webkit-keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@keyframes bounce{0%,to{transform:translateY(-25%);-webkit-animation-timing-function:cubic-bezier(.8,0,1,1);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);-webkit-animation-timing-function:cubic-bezier(0,0,.2,1);animation-timing-function:cubic-bezier(0,0,.2,1)}}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}}
+        </style>
+
+        <style>
+            body {
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+            <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
+                    <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
+                        404                    </div>
+
+                    <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
+                        Not Found                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+Retrieved 0 transactions from Knot
+Transformed into 0 items
+INFO:     127.0.0.1:60415 - "POST /api/knot/test-sync?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [28827]
+INFO:     Started server process [31772]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Traceback (most recent call last):
+  File "/Users/columbus/Desktop/hackPrinceton/backend/database/api/main.py", line 909, in sync_by_merchant
+    from knot_client import KnotClient
+ModuleNotFoundError: No module named 'knot_client'
+❌ Error syncing by merchant: No module named 'knot_client'
+INFO:     127.0.0.1:60435 - "POST /api/knot/sync-by-merchant?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 500 Internal Server Error
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [31772]
+INFO:     Started server process [32000]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"f9f5e720-b75e-4ddd-9aae-0487be21cbef"}
+INFO:     127.0.0.1:60445 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32000]
+INFO:     Started server process [32029]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Traceback (most recent call last):
+  File "/Users/columbus/Desktop/hackPrinceton/backend/database/api/main.py", line 909, in sync_by_merchant
+    from .knot_client import KnotClient
+ImportError: cannot import name 'KnotClient' from 'database.api.knot_client' (/Users/columbus/Desktop/hackPrinceton/backend/database/api/knot_client.py)
+❌ Error syncing by merchant: cannot import name 'KnotClient' from 'database.api.knot_client' (/Users/columbus/Desktop/hackPrinceton/backend/database/api/knot_client.py)
+INFO:     127.0.0.1:60456 - "POST /api/knot/sync-by-merchant?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:60510 - "OPTIONS /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"fff7d1f2-417f-45a4-a39d-065d76cdac57"}
+INFO:     127.0.0.1:60510 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'AUTHENTICATED', 'timestamp': 1762672161571, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': 'fff7d1f2-417f-45a4-a39d-065d76cdac57', 'task_id': 62233353, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event type: AUTHENTICATED
+✅ User user_35EFmFe77RGaAFSAQLfPtEin7XW authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762672170423, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔔 Knot event type: NEW_TRANSACTIONS_AVAILABLE
+👤 User: user_35EFmFe77RGaAFSAQLfPtEin7XW, 🏪 Merchant: Uber Eats (ID: 36)
+❌ Error processing root webhook: cannot import name 'KnotClient' from 'database.api.knot_client' (/Users/columbus/Desktop/hackPrinceton/backend/database/api/knot_client.py)
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 500 Internal Server Error
+📬 Received webhook at root: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762672185453, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔔 Knot event type: NEW_TRANSACTIONS_AVAILABLE
+👤 User: user_35EFmFe77RGaAFSAQLfPtEin7XW, 🏪 Merchant: Uber Eats (ID: 36)
+❌ Error processing root webhook: cannot import name 'KnotClient' from 'database.api.knot_client' (/Users/columbus/Desktop/hackPrinceton/backend/database/api/knot_client.py)
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 500 Internal Server Error
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32029]
+INFO:     Started server process [35022]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"b2600b1b-ae66-4209-9187-c9a6a143555b"}
+INFO:     127.0.0.1:60544 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"89afe73a-472a-4b72-a973-7d14362fb4d0"}
+INFO:     127.0.0.1:60549 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762672185453, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔔 Knot event type: NEW_TRANSACTIONS_AVAILABLE
+👤 User: user_35EFmFe77RGaAFSAQLfPtEin7XW, 🏪 Merchant: Uber Eats (ID: 36)
+❌ Error processing root webhook: cannot import name 'transform_knot_transactions' from 'database.api.knot_sync' (/Users/columbus/Desktop/hackPrinceton/backend/database/api/knot_sync.py)
+INFO:     127.0.0.1:60557 - "POST / HTTP/1.1" 500 Internal Server Error
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35022]
+INFO:     Started server process [36325]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60569 - "OPTIONS /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"268cadfc-f51d-47ec-8123-25f8bff90624"}
+INFO:     127.0.0.1:60569 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=19 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60569 - "OPTIONS /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=13 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 13}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"520e040d-1242-461b-84c2-c3f3c2714112"}
+INFO:     127.0.0.1:60569 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=13 HTTP/1.1" 200 OK
+🔵 Creating Knot session with payload: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 URL: https://production.knotapi.com/session/create
+🔵 Headers: {'Authorization': 'Basic YTM5MGU3OWQtMjkyMC00NDQwLTliYTEtYjc0N2JjOTI3OTBiOmJlMWU4NmFiYjRmYzQyYTNiOTA0YjJmNTIyMTU4NDdl', 'Content-Type': 'application/json'}
+🔵 Response status: 200
+🔵 Response body: {"session":"80d134e3-cf1c-49ea-bb90-94fbfa1b2f89"}
+INFO:     127.0.0.1:60581 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+📬 Received webhook at root: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762672185453, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔔 Knot event type: NEW_TRANSACTIONS_AVAILABLE
+👤 User: user_35EFmFe77RGaAFSAQLfPtEin7XW, 🏪 Merchant: Uber Eats (ID: 36)
+🔵 Fetching transactions by merchant ID from https://production.knotapi.com/transaction/sync
+🔵 Params: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'merchant_id': 36, 'limit': 100}
+🔵 Response status: 404
+❌ Error fetching transactions by merchant: 404 Client Error: Not Found for url: https://production.knotapi.com/transaction/sync?external_user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36&limit=100
+❌ Response: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Not Found</title>
+
+        <style>
+            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}code{font-family:monospace,monospace;font-size:1em}[hidden]{display:none}html{font-family:system-ui,-apple-syste
+📦 Retrieved 0 transactions from Knot
+⚠️ No transactions available yet
+INFO:     127.0.0.1:60584 - "POST / HTTP/1.1" 200 OK
 WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [1079]
-INFO:     Started server process [1324]
+INFO:     Finished server process [36325]
+INFO:     Started server process [39412]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
+📬 Received webhook at root: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762672185453, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔔 Knot event type: NEW_TRANSACTIONS_AVAILABLE
+👤 User: user_35EFmFe77RGaAFSAQLfPtEin7XW, 🏪 Merchant: Uber Eats (ID: 36)
+🔵 Fetching transactions by merchant ID from https://api.knotapi.com/transaction/sync
+🔵 Params: {'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'merchant_id': 36, 'limit': 100}
+🔵 Response status: 404
+❌ Error fetching transactions by merchant: 404 Client Error: Not Found for url: https://api.knotapi.com/transaction/sync?external_user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36&limit=100
+❌ Response: The deployment could not be found on Vercel.
+
+DEPLOYMENT_NOT_FOUND
+
+iad1::95784-1762672749219-e939a6355ef2
+
+📦 Retrieved 0 transactions from Knot
+⚠️ No transactions available yet
+INFO:     127.0.0.1:60661 - "POST / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [39412]
+INFO:     Started server process [40396]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40396]
+INFO:     Started server process [40659]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40659]
+INFO:     Started server process [40707]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40707]
+INFO:     Started server process [40764]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40764]
+INFO:     Started server process [40825]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🗑️  Clearing existing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+✅ Cleared transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔄 Manually syncing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Starting Knot sync for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔵 Fetching merchant accounts from https://api.knotapi.com/v1/transaction-link/merchant-accounts
+🔵 Params: {'externalUserId': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔵 Response status: 404
+Error fetching merchant accounts: 404 Client Error: Not Found for url: https://api.knotapi.com/v1/transaction-link/merchant-accounts?externalUserId=user_35EFmFe77RGaAFSAQLfPtEin7XW
+Response: The deployment could not be found on Vercel.
+
+DEPLOYMENT_NOT_FOUND
+
+iad1::swbqt-1762672925013-cc905a744338
+
+📋 Found 0 merchant accounts for user user_35EFmFe77RGaAFSAQLfPtEin7XW
+📦 Total transactions retrieved: 0
+Retrieved 0 transactions from Knot
+Transformed into 0 items
+INFO:     127.0.0.1:60717 - "POST /api/knot/test-sync?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40825]
+INFO:     Started server process [41246]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41246]
+INFO:     Started server process [41294]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41294]
+INFO:     Started server process [41319]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41319]
+INFO:     Started server process [41346]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🗑️  Clearing existing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+✅ Cleared transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔄 Manually syncing transactions for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+Starting Knot sync for user: user_35EFmFe77RGaAFSAQLfPtEin7XW
+🔵 Fetching merchant accounts from https://api.knotapi.com/v1/transaction-link/merchant-accounts
+🔵 Params: {'externalUserId': 'user_35EFmFe77RGaAFSAQLfPtEin7XW'}
+🔵 Response status: 404
+Error fetching merchant accounts: 404 Client Error: Not Found for url: https://api.knotapi.com/v1/transaction-link/merchant-accounts?externalUserId=user_35EFmFe77RGaAFSAQLfPtEin7XW
+Response: The deployment could not be found on Vercel.
+
+DEPLOYMENT_NOT_FOUND
+
+iad1::lvlz2-1762672981377-8d3f55798d28
+
+📋 Found 0 merchant accounts for user user_35EFmFe77RGaAFSAQLfPtEin7XW
+📦 Total transactions retrieved: 0
+Retrieved 0 transactions from Knot
+Transformed into 0 items
+INFO:     127.0.0.1:60758 - "POST /api/knot/test-sync?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60827 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60827 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60827 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60844 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60827 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60844 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60874 - "OPTIONS /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60875 - "OPTIONS /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60876 - "OPTIONS /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60874 - "OPTIONS /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60877 - "OPTIONS /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60878 - "OPTIONS /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60879 - "OPTIONS /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60875 - "OPTIONS /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60875 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60876 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60875 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60879 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60877 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60874 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60878 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60876 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60875 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60879 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/load_demo_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     127.0.0.1:60878 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60877 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     Waiting for connections to close. (CTRL+C to force quit)
+INFO:     127.0.0.1:60874 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60876 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41346]
+INFO:     Started server process [42977]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/load_demo_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [42977]
+INFO:     Started server process [43238]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43238]
+INFO:     Started server process [43862]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:61244 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61245 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61260 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61263 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61261 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61262 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43862]
+INFO:     Started server process [44528]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:61682 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61683 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61699 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61701 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61698 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61700 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61735 - "OPTIONS /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61736 - "OPTIONS /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61735 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61736 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61760 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61761 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61778 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61777 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61776 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61779 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61814 - "OPTIONS /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61815 - "OPTIONS /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61816 - "OPTIONS /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61814 - "OPTIONS /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61817 - "OPTIONS /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61818 - "OPTIONS /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61819 - "OPTIONS /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61815 - "OPTIONS /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61819 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61815 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61816 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61818 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61817 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61814 - "GET /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61816 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61815 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61818 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61819 - "GET /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61891 - "GET /feed?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61903 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=5 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [44528]
+INFO:     Started server process [47034]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47034]
+INFO:     Started server process [47114]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:61952 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61951 - "GET /api/better-deals?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61949 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61950 - "GET /api/smart-tips?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61951 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61952 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47114]
+INFO:     Started server process [47902]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_sync.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47902]
+INFO:     Started server process [50561]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_sync.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50561]
+INFO:     Started server process [50639]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_sync.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50639]
+INFO:     Started server process [50695]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:62313 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62323 - "OPTIONS /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62324 - "OPTIONS /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62325 - "OPTIONS /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62326 - "OPTIONS /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62324 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62326 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62323 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62325 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62358 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62374 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62375 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62374 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62375 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62390 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62391 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62374 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62375 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62422 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62431 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62462 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62480 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62479 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62498 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62496 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62495 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62497 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62587 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62586 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62587 - "OPTIONS /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 200 OK
+Error creating Knot session: 500: Failed to create session - Knot API may be unavailable. Check the API base URL with Knot support.
+INFO:     127.0.0.1:62586 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 500 Internal Server Error
+Error creating Knot session: 500: Failed to create session - Knot API may be unavailable. Check the API base URL with Knot support.
+INFO:     127.0.0.1:62603 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62603 - "OPTIONS /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=36 HTTP/1.1" 200 OK
+Error creating Knot session: 500: Failed to create session - Knot API may be unavailable. Check the API base URL with Knot support.
+INFO:     127.0.0.1:62603 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=36 HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62611 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62603 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+Error creating Knot session: 500: Failed to create session - Knot API may be unavailable. Check the API base URL with Knot support.
+INFO:     127.0.0.1:62611 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 500 Internal Server Error
+WARNING:  StatReload detected changes in 'database/api/knot_sync.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50695]
+INFO:     Started server process [57922]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [57922]
+INFO:     Started server process [58053]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [58053]
+INFO:     Started server process [58105]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 Response status: 200
+✅ Session created: 84156783-a002-46c7-aa26-ca44251efd6e...
+INFO:     127.0.0.1:62650 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [58105]
+INFO:     Started server process [58167]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [58167]
+INFO:     Started server process [58223]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 Response status: 200
+✅ Session created: 108ff353-4113-477d-a825-324effcd7ca1...
+INFO:     127.0.0.1:62661 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35EFmFe77RGaAFSAQLfPtEin7XW', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 Response status: 200
+✅ Session created: 66baf714-f9cc-49de-94e8-35b6e22c496d...
+INFO:     127.0.0.1:62664 - "POST /api/knot/session?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&merchant_id=36 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62675 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62676 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 Response status: 200
+✅ Session created: 1be4dbaf-9427-4935-b455-7662f9f0d296...
+INFO:     127.0.0.1:62688 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=36 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62675 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62676 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 Response status: 200
+✅ Session created: df0b5220-7603-4c4c-b02e-8d676461d67d...
+INFO:     127.0.0.1:62675 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 200 OK
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 Response status: 200
+✅ Session created: 710c27ea-ad13-45b6-b89e-e658212cbfec...
+INFO:     127.0.0.1:62717 - "POST /api/knot/session?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&merchant_id=19 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62705 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62706 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762675537840, 'merchant': {'id': 19, 'name': 'DoorDash'}, 'session_id': '710c27ea-ad13-45b6-b89e-e658212cbfec', 'task_id': 62243336, 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc authenticated to DoorDash
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762675549433, 'merchant': {'id': 19, 'name': 'DoorDash'}, 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc'}
+🔔 Knot event: NEW_TRANSACTIONS_AVAILABLE
+✅ Transaction webhook for DoorDash (user: user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc)
+🔄 Attempting to sync transactions from Knot API...
+🔵 Syncing transactions from https://production.knotapi.com/transactions/sync
+🔵 Body: {'merchant_id': 19, 'external_user_id': 'user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc', 'limit': 50}
+🔵 Response status: 200
+✅ Got 6 transactions from DoorDash
+📦 Received 6 transactions from Knot
+🔄 Transformed into 36 items
+✅ Saved 36 items to Snowflake from DoorDash
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62767 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62768 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62769 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62758 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62768 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62757 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62767 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62769 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [58223]
+INFO:     Started server process [59506]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:63064 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63064 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63065 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63066 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63067 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63068 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63069 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63064 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63069 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63065 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63064 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63068 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63067 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63066 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63064 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63065 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63068 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63069 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63145 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63144 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63143 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63142 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63313 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63323 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=30 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63332 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=30 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63350 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63351 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63350 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63351 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63350 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63367 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63366 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63351 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63406 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63407 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63424 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63423 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63425 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63422 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63455 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63473 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63474 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63491 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63492 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63473 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63474 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63536 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63537 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63552 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63553 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63537 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63536 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63592 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63591 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63609 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63591 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63592 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63608 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63643 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63639 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63644 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63642 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63639 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63640 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63643 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63641 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63642 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63644 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63719 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63716 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63718 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63717 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63772 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63773 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63774 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63775 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63759 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63758 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63773 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63774 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63775 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63772 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63816 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63815 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63829 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63832 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63831 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63830 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63877 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63878 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63877 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63893 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63893 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63877 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63894 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63878 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63926 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63950 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63949 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63966 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63968 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63967 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63965 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64005 - "GET /api/user/user_35EFmFe77RGaAFSAQLfPtEin7XW/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64023 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64024 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64042 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64041 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64039 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64040 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64098 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64100 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64100 - "OPTIONS /api/knot/session?user_id=user_35B6LnrMjWDn0O0ai54DA7dSeEt&merchant_id=19 HTTP/1.1" 200 OK
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35B6LnrMjWDn0O0ai54DA7dSeEt', 'type': 'transaction_link', 'merchant_id': 19}
+🔵 Response status: 200
+✅ Session created: 21f075a7-9b5c-4877-ab08-27eab10aea8c...
+INFO:     127.0.0.1:64100 - "POST /api/knot/session?user_id=user_35B6LnrMjWDn0O0ai54DA7dSeEt&merchant_id=19 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64098 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64100 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64098 - "OPTIONS /api/knot/session?user_id=user_35B6LnrMjWDn0O0ai54DA7dSeEt&merchant_id=36 HTTP/1.1" 200 OK
+🔵 Creating Knot session at https://production.knotapi.com/session/create
+🔵 Body: {'client_id': 'a390e79d-2920-4440-9ba1-b747bc92790b', 'external_user_id': 'user_35B6LnrMjWDn0O0ai54DA7dSeEt', 'type': 'transaction_link', 'merchant_id': 36}
+🔵 Response status: 200
+✅ Session created: eb88a6a6-07a8-49bd-9d14-e401cfc2a062...
+INFO:     127.0.0.1:64098 - "POST /api/knot/session?user_id=user_35B6LnrMjWDn0O0ai54DA7dSeEt&merchant_id=36 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64100 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64098 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64174 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64175 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64175 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64174 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64189 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64188 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64190 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64191 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/add_complementary_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [59506]
+INFO:     Started server process [67859]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:64238 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:64247 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64263 - "GET /api/predict?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW&limit=3 HTTP/1.1" 200 OK
+LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
+❌ Error saving graph data: 002023 (22000): SQL compilation error:
+Expression type does not match column data type, expecting VARIANT but got VARCHAR(1003) for column NODES
+INFO:     127.0.0.1:64273 - "GET /api/piggy-graph?user_id=user_35EFmFe77RGaAFSAQLfPtEin7XW HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64297 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64298 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64316 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64317 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64315 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64314 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64373 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64374 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64373 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64373 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64373 - "OPTIONS /api/user/user_35B3tkTHaMnIlBxcGE7RRr8Xg5l/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64374 - "OPTIONS /api/predict?user_id=user_35B3tkTHaMnIlBxcGE7RRr8Xg5l&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64376 - "OPTIONS /api/user/user_35B3tkTHaMnIlBxcGE7RRr8Xg5l/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64397 - "OPTIONS /api/predict?user_id=user_35B3tkTHaMnIlBxcGE7RRr8Xg5l&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64399 - "GET /api/predict?user_id=user_35B3tkTHaMnIlBxcGE7RRr8Xg5l&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64373 - "GET /api/user/user_35B3tkTHaMnIlBxcGE7RRr8Xg5l/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64399 - "GET /api/predict?user_id=user_35B3tkTHaMnIlBxcGE7RRr8Xg5l&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64373 - "GET /api/user/user_35B3tkTHaMnIlBxcGE7RRr8Xg5l/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64741 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64742 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64743 - "OPTIONS /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64744 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64728 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64727 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64742 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64741 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64744 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64743 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'AUTHENTICATED', 'timestamp': 1762677024569, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'session_id': 'be9a6fdd-8abd-407a-9d42-e62955e61bce', 'task_id': 62246170, 'external_user_id': 'mock-user-id-1762676956906', 'data': {'card_id': None, 'send_card': False}}
+🔔 Knot event: AUTHENTICATED
+✅ User mock-user-id-1762676956906 authenticated to Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+📬 Received Knot webhook: {'event': 'NEW_TRANSACTIONS_AVAILABLE', 'timestamp': 1762677028488, 'merchant': {'id': 36, 'name': 'Uber Eats'}, 'external_user_id': 'mock-user-id-1762676956906'}
+🔔 Knot event: NEW_TRANSACTIONS_AVAILABLE
+✅ Transaction webhook for Uber Eats (user: mock-user-id-1762676956906)
+🔄 Attempting to sync transactions from Knot API...
+🔵 Syncing transactions from https://production.knotapi.com/transactions/sync
+🔵 Body: {'merchant_id': 36, 'external_user_id': 'mock-user-id-1762676956906', 'limit': 50}
+🔵 Response status: 200
+✅ Got 2 transactions from Uber Eats
+📦 Received 2 transactions from Knot
+🔄 Transformed into 5 items
+✅ Saved 5 items to Snowflake from Uber Eats
+INFO:     35.232.249.218:0 - "POST / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64783 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64784 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64785 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64787 - "OPTIONS /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64783 - "OPTIONS /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64784 - "OPTIONS /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64784 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64787 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64784 - "GET /api/better-deals?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64785 - "GET /api/smart-tips?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64783 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64786 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64782 - "GET /api/user/user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc/transactions?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64787 - "GET /api/predict?user_id=user_35EVbFBKzmrGZkX8Fa9dcAxM6Xc&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64785 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64784 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK

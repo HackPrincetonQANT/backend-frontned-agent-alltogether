@@ -79,7 +79,7 @@ export const Onboarding = () => {
       knotapi.open({
         sessionId: sessionData.session_id,
         clientId: publicClientId, 
-        environment: 'development',
+        environment: 'production',
         product: 'transaction_link',
         merchantIds: [merchantId], 
         entryPoint: 'onboarding',
@@ -299,10 +299,12 @@ export const Onboarding = () => {
                         : 'border-[#6b4423] bg-[#f8f3e9] hover:border-[#5a3a1f] hover:bg-[#f3ecd8]'
                     }`}
                   >
-                    {/* Checkmark badge */}
-                    <div className="absolute top-2 right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
-                      <span className="text-white font-bold text-lg">✓</span>
-                    </div>
+                    {/* Checkmark badge - only show when connected */}
+                    {knotServices.includes(service.id) && (
+                      <div className="absolute top-2 right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                        <span className="text-white font-bold text-lg">✓</span>
+                      </div>
+                    )}
                     
                     <div className="text-5xl mb-3">{service.icon}</div>
                     <div className="font-rique font-bold text-xl">{service.name}</div>
