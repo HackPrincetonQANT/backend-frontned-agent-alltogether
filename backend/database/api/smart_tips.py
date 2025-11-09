@@ -134,7 +134,11 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
                         'category': data['category']
                     })
     
-    # 5. Sort by potential savings and return top tips
+    # 5. Convert all Decimal to float for JSON serialization
+    for tip in tips:
+        tip['savings'] = float(tip['savings'])
+    
+    # 6. Sort by potential savings and return top tips
     tips_sorted = sorted(tips, key=lambda x: x['savings'], reverse=True)[:limit]
     
     return tips_sorted
