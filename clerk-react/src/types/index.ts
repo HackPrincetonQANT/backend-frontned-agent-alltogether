@@ -32,8 +32,34 @@ export interface Transaction {
 
 export interface Prediction {
   item: string;
-  category: string;
-  next_time: string;  // ISO8601 timestamp
   confidence: number;
-  samples: number;
+  category: string;
+  estimated_date: string;
 }
+
+export interface SmartTip {
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  savings: number;
+  action: string;
+  category: string;
+}
+
+export interface BetterDeal {
+  current_store: string;
+  current_spending: number;
+  alternative_store: string;
+  emoji: string;
+  savings_percent: number;
+  monthly_savings: number;
+  purchase_count: number;
+  category: string;
+  all_alternatives: Array<{
+    name: string;
+    price_diff: number;
+    emoji: string;
+  }>;
+}
+

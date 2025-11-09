@@ -174,3 +174,53 @@ export const fetchSmartTips = async (
     throw error;
   }
 };
+
+/**
+ * Fetch better deals/alternatives
+ * @param userId - User identifier
+ * @param limit - Maximum number of deals to fetch
+ */
+export const fetchBetterDeals = async (
+  userId: string,
+  limit: number = 10
+): Promise<Array<{
+  current_store: string;
+  current_spending: number;
+  alternative_store: string;
+  emoji: string;
+  savings_percent: number;
+  monthly_savings: number;
+  purchase_count: number;
+  category: string;
+  all_alternatives: Array<{
+    name: string;
+    price_diff: number;
+    emoji: string;
+  }>;
+}>> => {
+  try {
+    const baseUrl = getBackendUrl();
+    const url = `${baseUrl}/api/better-deals?user_id=${userId}&limit=${limit}`;
+    
+    console.log('Fetching better deals from:', url);
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Backend API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('Received better deals:', data);
+    
+    return data;
+  } catch (error) {
+    console.error('Error fetching better deals:', error);
+    throw error;
+  }
+};

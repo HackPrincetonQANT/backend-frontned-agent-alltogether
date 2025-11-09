@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { fetchUserTransactions, fetchSmartTips } from '../../services';
-import type { Transaction } from '../../types';
+import { fetchUserTransactions, fetchSmartTips, fetchBetterDeals } from '../../services';
+import type { Transaction, BetterDeal } from '../../types';
 
 interface SmartTip {
   icon: string;
@@ -15,6 +15,7 @@ interface SmartTip {
 export const Insights = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [smartTips, setSmartTips] = useState<SmartTip[]>([]);
+  const [betterDeals, setBetterDeals] = useState<BetterDeal[]>([]);
   const [loading, setLoading] = useState(true);
   
   // TODO: Replace with actual user ID from Clerk
@@ -24,12 +25,14 @@ export const Insights = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [transactionsData, tipsData] = await Promise.all([
+        const [transactionsData, tipsData, dealsData] = await Promise.all([
           fetchUserTransactions(userId, 100),
-          fetchSmartTips(userId, 6)
+          fetchSmartTips(userId, 6),
+          fetchBetterDeals(userId, 6)
         ]);
         setTransactions(transactionsData);
         setSmartTips(tipsData);
+        setBetterDeals(dealsData);
       } catch (err) {
         console.error('Failed to fetch data:', err);
       } finally {
@@ -246,111 +249,65 @@ export const Insights = () => {
             </div>
           </div>
 
-          {/* Right Side - Price Comparisons (1/3 width) */}
+          {/* Right Side - Better Deals (1/3 width) */}
           <div className="lg:col-span-1">
             <div className="bg-[#f8f3e9] rounded-3xl p-6 shadow-xl border-4 border-[#6b4423] sticky top-6">
               <h2 className="text-2xl font-rique font-bold text-[#6b4423] mb-4">💰 Better Deals</h2>
               
-              <div className="space-y-4">
-                {/* Trader Joe's vs Walmart */}
-                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl">🛒</span>
-                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Grocery Savings</h3>
-                  </div>
-                  <div className="space-y-2 mb-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Trader Joe's</span>
-                      <span className="text-sm font-lexend font-bold text-red-600">$87.50</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Walmart</span>
-                      <span className="text-sm font-lexend font-bold text-green-600">$67.30</span>
-                    </div>
-                  </div>
-                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
-                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
-                      Save $20.20 per trip! 💚
-                    </p>
-                  </div>
+              {loading ? (
+                <div className="flex justify-center items-center py-8">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-[#6b4423]"></div>
                 </div>
+              ) : betterDeals.length === 0 ? (
+                <p className="text-center font-lexend text-[#8b6240] py-4">
+                  No better deals found yet!
+                </p>
+              ) : (
+                <div className="space-y-4">
+                  {betterDeals.slice(0, 5).map((deal, index) => (
+                    <div key={index} className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-2xl">{deal.emoji}</span>
+                        <h3 className="text-base font-rique font-bold text-[#6b4423]">
+                          {deal.current_store}
+                        </h3>
+                      </div>
+                      <div className="space-y-2 mb-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-lexend text-[#8b6240]">Current</span>
+                          <span className="text-sm font-lexend font-bold text-red-600">
+                            ${deal.current_spending.toFixed(2)}/mo
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-lexend text-[#8b6240]">
+                            {deal.alternative_store}
+                          </span>
+                          <span className="text-sm font-lexend font-bold text-green-600">
+                            ${(deal.current_spending - deal.monthly_savings).toFixed(2)}/mo
+                          </span>
+                        </div>
+                      </div>
+                      <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
+                        <p className="text-xs font-lexend font-bold text-green-700 text-center">
+                          Save ${deal.monthly_savings.toFixed(2)}/mo ({deal.savings_percent}% less!) 💚
+                        </p>
+                      </div>
+                    </div>
+                  ))}
 
-                {/* Whole Foods vs Aldi */}
-                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl">🥬</span>
-                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Produce Deals</h3>
-                  </div>
-                  <div className="space-y-2 mb-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Whole Foods</span>
-                      <span className="text-sm font-lexend font-bold text-red-600">$45.99</span>
+                  {/* Total Potential Savings */}
+                  {betterDeals.length > 0 && (
+                    <div className="bg-[#6b4423] rounded-xl p-4 border-4 border-[#5a3a1f] mt-4">
+                      <p className="text-sm font-lexend text-[#f8f3e9] mb-1 text-center">Total Monthly Savings</p>
+                      <p className="text-3xl font-rique font-bold text-[#fdfbf7] text-center">
+                        ${betterDeals.reduce((sum, deal) => sum + deal.monthly_savings, 0).toFixed(2)}
+                      </p>
+                      <p className="text-xs font-lexend text-[#f8f3e9] mt-1 text-center">if you switch stores!</p>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Aldi</span>
-                      <span className="text-sm font-lexend font-bold text-green-600">$28.75</span>
-                    </div>
-                  </div>
-                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
-                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
-                      Save $17.24 per trip! 🌱
-                    </p>
-                  </div>
+                  )}
                 </div>
-
-                {/* Target vs Amazon */}
-                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl">📦</span>
-                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Online Shopping</h3>
-                  </div>
-                  <div className="space-y-2 mb-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Target</span>
-                      <span className="text-sm font-lexend font-bold text-red-600">$156.78</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Amazon</span>
-                      <span className="text-sm font-lexend font-bold text-green-600">$132.45</span>
-                    </div>
-                  </div>
-                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
-                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
-                      Save $24.33 shopping! 📱
-                    </p>
-                  </div>
-                </div>
-
-                {/* CVS vs Costco */}
-                <div className="bg-[#fdfbf7] rounded-xl p-4 border-4 border-[#6b4423]">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl">💊</span>
-                    <h3 className="text-base font-rique font-bold text-[#6b4423]">Pharmacy Savings</h3>
-                  </div>
-                  <div className="space-y-2 mb-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">CVS</span>
-                      <span className="text-sm font-lexend font-bold text-red-600">$89.99</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-lexend text-[#8b6240]">Costco Pharmacy</span>
-                      <span className="text-sm font-lexend font-bold text-green-600">$54.99</span>
-                    </div>
-                  </div>
-                  <div className="bg-green-100 rounded-lg p-2 border-2 border-green-600">
-                    <p className="text-xs font-lexend font-bold text-green-700 text-center">
-                      Save $35.00 on meds! 💊
-                    </p>
-                  </div>
-                </div>
-
-                {/* Total Potential Savings */}
-                <div className="bg-[#6b4423] rounded-xl p-4 border-4 border-[#5a3a1f] mt-4">
-                  <p className="text-sm font-lexend text-[#f8f3e9] mb-1 text-center">Total Monthly Savings</p>
-                  <p className="text-3xl font-rique font-bold text-[#fdfbf7] text-center">$96.77</p>
-                  <p className="text-xs font-lexend text-[#f8f3e9] mt-1 text-center">if you switch stores!</p>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

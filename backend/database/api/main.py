@@ -13,6 +13,7 @@ from .semantic import search_similar_items
 from .predictor import predict_next_purchases
 from .do_llm import call_do_llm
 from .smart_tips import generate_smart_tips
+from .better_deals import generate_better_deals
 
 app = FastAPI(title="BalanceIQ Core API", version="0.1.0")
 
@@ -318,4 +319,34 @@ def api_smart_tips(
     except Exception as e:
         print("Smart tips error:", repr(e))
         raise HTTPException(status_code=500, detail="Failed to generate smart tips")
+
+
+# ----------------------------------------------------------------------
+# Better Deals endpoint
+# ----------------------------------------------------------------------
+
+
+@app.get("/api/better-deals")
+def api_better_deals(
+    user_id: str = Query(..., description="User ID"),
+    limit: int = Query(10, ge=1, le=20, description="Max number of deals"),
+) -> List[Dict[str, Any]]:
+    """
+    Better deals/alternatives endpoint.
+    
+    Suggests cheaper alternatives for stores and services the user frequents.
+    Shows potential monthly savings by switching to cheaper alternatives.
+    
+    Returns deals with:
+    - Current store/service
+    - Suggested alternative
+    - Estimated savings amount and percentage
+    - All available alternatives
+    """
+    try:
+        deals = generate_better_deals(user_id=user_id, limit=limit)
+        return deals
+    except Exception as e:
+        print("Better deals error:", repr(e))
+        raise HTTPException(status_code=500, detail="Failed to generate better deals")
 
