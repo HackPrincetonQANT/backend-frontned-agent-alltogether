@@ -200,7 +200,7 @@ export const Home = () => {
         {/* Deals for You Section */}
         <div className="mb-8">
           <div className="mb-6">
-            <h2 className="text-4xl font-rique font-bold text-[#6b4423]">Deals for You</h2>
+            <h2 className="text-4xl font-rique font-bold text-[#6b4423] pt-10">Deals for You</h2>
             <p className="text-lg font-lexend text-[#8b6240] mt-2">Personalized recommendations based on your spending</p>
           </div>
 
