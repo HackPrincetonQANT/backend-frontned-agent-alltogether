@@ -53,7 +53,7 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
         item_name = txn.get('ITEM_NAME') or txn.get('MERCHANT', 'Unknown')
         merchant = txn.get('MERCHANT', '')
         category = txn.get('CATEGORY', 'Other')
-        price = txn.get('PRICE', 0)
+        price = float(txn.get('PRICE', 0))  # Convert Decimal to float
         ts = txn.get('TS')
         
         key = f"{item_name}_{merchant}"
@@ -68,7 +68,7 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
     
     # 2. Find high-frequency items (coffee, fast food, etc.)
     for key, data in item_patterns.items():
-        if data['count'] >= 10 and data['category'] in ['Coffee', 'Food']:  # 10+ times in 30 days
+        if data['count'] >= 4 and data['category'] in ['Coffee', 'Food']:  # 4+ times in 30 days
             avg_price = data['total_spent'] / data['count']
             monthly_cost = data['total_spent']
             potential_savings = monthly_cost * 0.6  # Assume 60% savings possible
@@ -93,7 +93,7 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
     
     # Find top spending categories
     for category, cat_data in sorted(category_totals.items(), key=lambda x: x[1]['total'], reverse=True)[:3]:
-        if cat_data['total'] > 100 and category not in ['Coffee', 'Food']:  # Already handled above
+        if cat_data['total'] > 40 and category not in ['Coffee', 'Food']:  # Already handled above
             potential_savings = cat_data['total'] * 0.3  # 30% potential savings
             
             emoji_map = {
@@ -116,6 +116,11 @@ def generate_smart_tips(user_id: str, limit: int = 6) -> List[Dict[str, Any]]:
     
     # 4. Check for patterns that suggest subscriptions/recurring
     for key, data in item_patterns.items():
+        # Skip if already added as frequent purchase
+        already_added = any(tip.get('title') == f"Frequent {data['item_name']}" for tip in tips)
+        if already_added:
+            continue
+            
         # If same price multiple times from same merchant = likely subscription
         if len(data['prices']) >= 2:
             prices_unique = list(set([round(p, 2) for p in data['prices']]))
