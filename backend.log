@@ -1,182 +1,45 @@
 INFO:     Will watch for changes in these directories: ['/Users/columbus/Desktop/hackPrinceton/backend']
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [85189] using StatReload
-INFO:     Started server process [85192]
+INFO:     Started reloader process [99498] using StatReload
+INFO:     Started server process [99501]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-Error fetching category stats: fetch_all() got an unexpected keyword argument 'conn'
-No category stats found, using default deals
-INFO:     127.0.0.1:58079 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     127.0.0.1:59202 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59203 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59218 - "OPTIONS /api/knot/session HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59202 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59218 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59203 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59248 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59233 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59232 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59248 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59233 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59232 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59248 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59233 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59260 - "POST /api/knot/session HTTP/1.1" 422 Unprocessable Content
+Error creating session: 404 Client Error: Not Found for url: https://api.knotapi.com/v1/sessions
+Error creating Knot session: 500: Failed to create session
+INFO:     127.0.0.1:59268 - "POST /api/knot/session?user_id=test_user&merchant_id=44 HTTP/1.1" 500 Internal Server Error
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [85192]
-INFO:     Started server process [85760]
+INFO:     Finished server process [99501]
+INFO:     Started server process [1079]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
+INFO:     127.0.0.1:59295 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59294 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'database/api/knot_client.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [85760]
-INFO:     Started server process [85813]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-Category stats found: [{'CATEGORY': 'Shopping', 'COUNT': 16, 'AVG_PRICE': Decimal('28.33937500')}, {'CATEGORY': 'Coffee', 'COUNT': 5, 'AVG_PRICE': Decimal('5.20000000')}, {'CATEGORY': 'Entertainment', 'COUNT': 4, 'AVG_PRICE': Decimal('13.49000000')}]
-Processing category: Shopping
-Added deal for category: Shopping
-Processing category: Coffee
-Added deal for category: Coffee
-INFO:     127.0.0.1:58100 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [85813]
-INFO:     Started server process [86210]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58123 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58124 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58142 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58143 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [86210]
-INFO:     Started server process [86648]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [86648]
-INFO:     Started server process [86692]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58180 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58200 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58199 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58217 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58218 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58219 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58220 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58219 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58220 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58217 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58218 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58220 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58219 - "GET /api/ai-deals?user_id=u_demo_min&limit=2 HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [86692]
-INFO:     Started server process [87259]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [87259]
-INFO:     Started server process [87334]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58283 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58292 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58302 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58319 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58320 - "OPTIONS /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58319 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58320 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [87334]
-INFO:     Started server process [89177]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58352 - "GET /api/ai-deals?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58372 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58371 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58403 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58402 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58465 - "OPTIONS /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "OPTIONS /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58465 - "OPTIONS /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "OPTIONS /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58465 - "OPTIONS /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "OPTIONS /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58465 - "OPTIONS /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "OPTIONS /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58434 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58433 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58436 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58435 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58435 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58433 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58434 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58436 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58433 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58466 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58465 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58435 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58573 - "OPTIONS /api/knot/create-session HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58573 - "POST /api/knot/create-session HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58573 - "POST /api/knot/create-session HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58559 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58560 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58573 - "POST /api/knot/create-session HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58559 - "POST /api/knot/create-session HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58560 - "POST /api/knot/create-session HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58610 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58609 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58633 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58634 - "GET /api/ai-deals?user_id=u_demo_min&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58634 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58649 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58650 - "OPTIONS /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58651 - "OPTIONS /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58651 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58650 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58634 - "GET /api/user/u_demo_min/transactions?limit=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58649 - "GET /api/predict?user_id=u_demo_min&limit=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58686 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58685 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58682 - "GET /api/user/u_demo_min/transactions?limit=100 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58683 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58684 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58687 - "GET /api/smart-tips?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58685 - "GET /api/predict?user_id=u_demo_min&limit=3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58686 - "GET /api/better-deals?user_id=u_demo_min&limit=6 HTTP/1.1" 200 OK
-LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
-LLM insight generation failed: call_do_llm() missing 1 required positional argument: 'user_prompt', using fallback
-❌ Error saving graph data: 002023 (22000): SQL compilation error:
-Expression type does not match column data type, expecting VARIANT but got VARCHAR(1464) for column NODES
-❌ Error saving graph data: 002023 (22000): SQL compilation error:
-Expression type does not match column data type, expecting VARIANT but got VARCHAR(1464) for column NODES
-INFO:     127.0.0.1:58682 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58683 - "GET /api/piggy-graph?user_id=u_demo_min HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [89177]
-INFO:     Started server process [92600]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  StatReload detected changes in 'database/api/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [92600]
-INFO:     Started server process [95357]
+INFO:     Finished server process [1079]
+INFO:     Started server process [1324]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.

@@ -10,8 +10,8 @@ import base64
 
 # Knot API Configuration
 KNOT_BASE_URL = "https://api.knotapi.com"
-KNOT_CLIENT_ID = os.getenv("KNOT_CLIENT_ID", "dda0778d-9486-47f8-bd80-6f2512f9bcdb")
-KNOT_API_SECRET = os.getenv("KNOT_API_SECRET", "ff5e51b6dcf84a829898d37449cbc47a")
+KNOT_CLIENT_ID = os.getenv("KNOT_CLIENT_ID", "a390e79d-2920-4440-9ba1-b747bc92790b")
+KNOT_API_SECRET = os.getenv("KNOT_API_SECRET", "be1e86abb4fc42a3b904b2f52215847e")
 
 
 class KnotAPIClient:

@@ -33,39 +33,49 @@ export const Onboarding = () => {
 
   // Knot Transaction Link - connect to merchant via Flask backend
   const connectToKnot = async (serviceId: string, merchantId: number) => {
+    console.log('🔵 connectToKnot called:', { serviceId, merchantId });
     setIsConnecting(true);
     
     try {
       const knotapi = new KnotapiJS();
+      console.log('🔵 KnotapiJS initialized');
 
-      const sessionResponse = await fetch('http://localhost:8000/api/knot/create-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: user?.id || 'user123',
-          product: 'transaction_link',
-        }),
-      });
+      const actualUserId = user?.id || 'u_demo_min';
+      const sessionUrl = `http://localhost:8000/api/knot/session?user_id=${encodeURIComponent(actualUserId)}&merchant_id=${merchantId}`;
+      console.log('🔵 Fetching session from:', sessionUrl);
+      
+      const sessionResponse = await fetch(
+        sessionUrl,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('🔵 Session response status:', sessionResponse.status);
 
       if (!sessionResponse.ok) {
         const errorText = await sessionResponse.text();
-        console.error('Backend API Error:', errorText);
+        console.error('❌ Backend API Error:', errorText);
+        alert(`Failed to create Knot session. The Knot API credentials may need to be activated in the Knot dashboard. Error: ${errorText}`);
         throw new Error(`Failed to create session from backend: ${errorText}`);
       }
 
       const sessionData = await sessionResponse.json();
-      console.log('Session created via backend:', sessionData);
+      console.log('✅ Session created via backend:', sessionData);
       
       // Read the public client ID from environment variable
       const publicClientId = import.meta.env.VITE_KNOT_CLIENT_ID;
 
       if (!publicClientId) {
-        console.error('VITE_KNOT_CLIENT_ID is not set in your .env file');
+        console.error('❌ VITE_KNOT_CLIENT_ID is not set in your .env file');
+        alert('Frontend configuration error - missing VITE_KNOT_CLIENT_ID in .env file');
         throw new Error('Frontend configuration error - missing client ID');
       }
       
+      console.log('🔵 Opening Knot SDK with session:', sessionData.session_id);
       knotapi.open({
         sessionId: sessionData.session_id,
         clientId: publicClientId, 
@@ -85,6 +95,7 @@ export const Onboarding = () => {
         },
         onError: (product: string, errorCode: string, errorDescription: string) => {
           console.error('❌ Knot Error:', product, errorCode, errorDescription);
+          alert(`Knot Error: ${errorDescription}`);
           setIsConnecting(false);
         },
         onExit: (product: string) => {
@@ -105,7 +116,7 @@ export const Onboarding = () => {
         },
       });
     } catch (error) {
-      console.error('Failed to connect to Knot:', error);
+      console.error('❌ Failed to connect to Knot:', error);
       setIsConnecting(false);
     }
   };

@@ -3,13 +3,11 @@
 > vite
 
 
-  VITE v7.2.2  ready in 78 ms
+  VITE v7.2.2  ready in 90 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-12:14:08 AM [vite] (client) hmr update /src/index.css, /src/components/common/Home.tsx
-12:15:36 AM [vite] (client) hmr update /src/index.css, /src/components/common/Home.tsx
-12:16:29 AM [vite] (client) hmr update /src/index.css, /src/components/common/Home.tsx
-12:19:00 AM [vite] (client) hmr update /src/index.css, /src/components/common/Home.tsx
-12:19:10 AM [vite] (client) hmr update /src/index.css, /src/components/common/Home.tsx
-12:37:01 AM [vite] (client) hmr update /src/index.css, /src/components/common/Home.tsx
+12:56:00 AM [vite] (client) hmr update /src/index.css, /src/components/onboarding/Onboarding.tsx
+12:56:35 AM [vite] (client) hmr update /src/index.css, /src/components/onboarding/Onboarding.tsx
+12:57:41 AM [vite] .env changed, restarting server...
+12:57:41 AM [vite] server restarted.
