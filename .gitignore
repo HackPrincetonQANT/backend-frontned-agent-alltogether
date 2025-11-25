@@ -1,26 +1,61 @@
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example
+
 # Logs
 *.log
 backend.log
 frontend.log
+agent.log
 
 # Process IDs
+*.pid
 .backend.pid
 .frontend.pid
+.agent.pid
 
-# Environment variables
-.env
-.env.local
-
-# Dependencies
-node_modules/
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
 # Build outputs
 dist/
 build/
+.vite/
+.next/
+out/
 
-backend.log
-frontend.log
-.backend.pid
-.frontend.pid
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+coverage/
+.pytest_cache/
+.coverage
+
+# Temporary files
+tmp/
+temp/
+*.tmp
