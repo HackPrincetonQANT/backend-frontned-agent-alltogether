@@ -3,9 +3,9 @@
 <!-- HEADER STYLE: CLASSIC -->
 <div align="center">
 
-# Smart Piggy AI – Multimodal Financial Assistant
+# PiggyBank AI – Multimodal Financial Assistant – Money that talks
 
-<em>HackPrinceton QANT – Real-time spending conscience for the everyday spender</em>
+<em>Real-time spending conscience for the everyday spender</em>
 
 <!-- BADGES -->
 <img src="https://img.shields.io/github/license/HackPrincetonQANT/backend-frontned-agent-alltogether?style=flat&logo=opensourceinitiative&logoColor=white&color=f97316" alt="license">
